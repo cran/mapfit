@@ -1,0 +1,137 @@
+useDynLib(mapfit, .registration=TRUE)
+
+##exportPattern(".") ## for test
+
+##importFrom("base", print, mean)
+
+import("methods")
+importFrom("Matrix", sparseMatrix, diag)
+
+## Factories of class
+
+export(
+##	phfit.time.data.frame,
+##	phfit.group.data.frame,
+##	mapfit.time.data.frame,
+##	mapfit.group.data.frame
+)
+
+export(
+	cf1,
+	herlang,
+	ph
+##	ph.bidiag
+##	ph.tridiag
+)
+
+export(
+	map,
+	mmpp,
+	erhmm,
+##	map.bidiag,
+##	map.tridiag,
+##	mmpp.tridiag,
+	gmmpp
+)
+
+## utils
+
+export(
+##	mexp,
+##	mpow,
+##	msolve,
+##	ctmc.st
+##	zero.to.inf,
+##	minusone.to.one,
+##	deformula.weight
+)
+
+## phfit methods
+
+export(
+	phfit.point,
+	phfit.group,
+	phfit.density,
+##	phfit.gen,
+##	phfit.cf1,
+##	phfit.herlang,
+	phfit.3mom
+)
+
+## mapfit methods
+
+export(
+	mapfit.point,
+##	mapfit.erhmm,
+##	mapfit.gen,
+##	mapfit.gmmpp,
+	mapfit.group
+)
+
+## general ph
+
+exportMethods(
+	ph.moment
+)
+
+export(
+	ph.mean,
+	ph.var,
+	dph,
+	pph,
+	rph
+)
+
+## herlang
+
+export(
+	dherlang,
+	pherlang,
+	rherlang
+)
+
+## map
+
+export(
+	map.mmoment,
+	map.jmoment,
+	map.acf
+)
+
+## Display for results
+
+S3method(print, phfit.result)
+S3method(print, mapfit.result)
+
+## Model classes
+
+exportClasses(
+	ph,
+	cf1,
+	herlang,
+	map,
+	gmmpp,
+##	hmm,
+	erhmm
+)
+
+## Data classes
+
+exportClassPattern(
+##	"^phdata.*",
+##	"^mapdata.*"
+)
+
+exportMethods(
+##	mean,
+##	summary,
+##	print
+)
+
+### general em steps
+
+exportMethods(
+##	emfit.init,
+##	emfit.estep,
+##	emfit.mstep
+)
