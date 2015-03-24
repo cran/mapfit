@@ -3,9 +3,9 @@
 \alias{mapfit}
 \alias{phfit}
 \docType{package}
-\title{An R-based tool for PH/MAP parameter estimation}
+\title{PH/MAP parameter estimation tool}
 \description{
-Etimation methods for phase-type
+Estimation methods for phase-type
   distribution (PH) and Markovian arrival process (MAP) from
   empirical data (point and grouped data) and density function.
 }
@@ -13,15 +13,16 @@ Etimation methods for phase-type
 \tabular{ll}{
 Package: \tab mapfit\cr
 Type: \tab Package\cr
-Version: \tab 0.9.6\cr
-Date: \tab 2015-02-08\cr
+Version: \tab 0.9.7\cr
+Date: \tab 2015-03-24\cr
 License: \tab GPL (>= 2)\cr
 LazyLoad: \tab yes\cr
 }
 }
 \author{
-Hiroyuki OKAMURA
-Maintainer: Hiroyuki OKAMURA <okamu@rel.hiroshima-u.ac.jp>
+Hiroyuki Okamura
+
+Maintainer: Hiroyuki Okamura <okamu@rel.hiroshima-u.ac.jp>
 }
 % \references{
 % ~~ Literature or other references for background information ~~

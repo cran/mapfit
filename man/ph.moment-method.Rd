@@ -22,7 +22,7 @@ ph.var(ph)
 }
 \details{
   The PH distribution with parameters \eqn{alpha}, \eqn{Q} and \eqn{xi}:
-  k-th moment; \deqn{(-1)^k k! alpha (-Q)^{-k} 1}
+  k-th moment; \deqn{k! \alpha (-Q)^{-k} 1}
 }
 \note{
 \code{ph.moment} is a generic function for \code{\linkS4class{ph}} and \code{\linkS4class{herlang}}.

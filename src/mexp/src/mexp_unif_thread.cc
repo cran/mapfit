@@ -13,6 +13,14 @@
 #include "mexp.hh"
 
 namespace mexp {
+  // util
+  int pow2i(int m) {
+    int n = 1;
+    for (int i=0; i<m; i++) {
+      n *= 2;
+    }
+    return n;
+  }
 
   sci::vector<double>& mexp_unifvec_thread(sci::mat::trans trans,
     const sci::array< sci::matrix<double>* >& P, double qv,
@@ -26,7 +34,7 @@ namespace mexp {
 
     int n = (*(P[0])).nrow;
     int m = P.size;
-    int th = ldexp(1, m-1);
+    int th = pow2i(m-1);
     sci::range xrow(1,n);
     sci::dmatrix<double> xi(n, th);
     sci::dmatrix<double> tmp(n, th);

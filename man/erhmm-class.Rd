@@ -4,7 +4,7 @@
 
 \title{Class of ER-HMM}
 \description{Parameters for an ER-HMM (Hidden Markov Model with Erlang outputs).}
-\section{Objects from the Class}{Objects are usually created by a \link{erhmm}.}
+\section{Objects from the Class}{Objects are usually created by an \link{erhmm}.}
 \section{Slots}{
   \describe{
     \item{\code{size}:}{the number of HMM states.}

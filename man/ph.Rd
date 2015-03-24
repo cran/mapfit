@@ -30,9 +30,9 @@ rph(n, ph = ph(1))
 \item{log.p}{logical; if \code{TRUE}, the log probability is returned.}
 }
 \details{
-  The PH distribution with parameters \eqn{alpha}, \eqn{Q} and \eqn{xi}:
-  Cumulative probability function; \deqn{F(q) = 1 - alpha \exp( Q q ) 1}
-  Probability density function; \deqn{f(x) = alpha \exp( Q x ) xi}
+  The PH distribution with parameters \eqn{\alpha}, \eqn{Q} and \eqn{\xi}:
+  Cumulative probability function; \deqn{F(q) = 1 - \alpha \exp( Q q ) 1}
+  Probability density function; \deqn{f(x) = \alpha \exp( Q x ) \xi}
 }
 \note{
   \code{ph} requires either \code{size} or (\code{alpha}, \code{Q}, \code{xi}).

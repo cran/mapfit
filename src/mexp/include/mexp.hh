@@ -8,6 +8,8 @@ mexp
 #include "sci_spblas.hh"
 
 namespace mexp {
+// util
+  int pow2i(int m);
 
 // unif
 	double unif(const sci::matrix<double>& Q, sci::matrix<double>& P, double ufact = 1.01);

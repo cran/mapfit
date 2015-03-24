@@ -14,9 +14,9 @@ cf1(size, alpha, rate, class = "CsparseMatrix")
 \item{class}{name of Matrix class for \code{Q}.}
 }
 \details{
-  The PH distribution with parameters \eqn{alpha}, \eqn{Q} and \eqn{xi}:
-  Cumulative probability function; \deqn{F(q) = 1 - alpha \exp( Q q ) 1}
-  Probability density function; \deqn{f(x) = alpha \exp( Q x ) xi},
+  The PH distribution with parameters \eqn{\alpha}, \eqn{Q} and \eqn{\xi = - Q 1}:
+  Cumulative probability function; \deqn{F(q) = 1 - \alpha \exp( Q q ) 1}
+  Probability density function; \deqn{f(x) = \alpha \exp( Q x ) \xi,}
   where \eqn{Q} is a bidiagonal matrix whose entries are sorted.
 }
 \note{

@@ -17,7 +17,7 @@ pherlang(q, herlang = herlang(shape = c(1)), lower.tail = TRUE, log.p = FALSE)
 rherlang(n, herlang = herlang(shape = c(1)))
 }
 \arguments{
-\item{shape}{a integer vector of shape parameters of Erlang components.}
+\item{shape}{an integer vector of shape parameters of Erlang components.}
 \item{mixrate}{a vector for the initial probabilities of hyper-Erlang distribution.}
 \item{rate}{a vector of rate parameters of Erlang components.}
 \item{x, q}{vectors of quantiles.}
@@ -29,9 +29,10 @@ rherlang(n, herlang = herlang(shape = c(1)))
 \item{log.p}{logical; if \code{TRUE}, the log probability is returned.}
 }
 \details{
-  The hyper-Erlang distribution with parameters \eqn{mixrate}, \eqn{shape} and \eqn{rate}:
-  Cumulative probability function; \deqn{F(q) = \sum_i \int_0^q maxirate_i rate_i^shape_i x^(shape_i-1) e^(-rate_i x) / (shape_i - 1)! dx}
-  Probability density function; \deqn{f(x) = \sum_i maxirate_i rate_i^shape_i x^(shape_i-1) e^(-rate_i x) / (shape_i - 1)!}
+  The hyper-Erlang distribution with parameters \eqn{m_i} (\code{mixrate}),
+  \eqn{s_i} (\code{shape}) and \eqn{r_i} (\code{rate}):
+  Cumulative probability function; \deqn{F(q) = \sum_i \int_0^q m_i \frac{r_i^{s_i} x^{s_i-1} e^{-r_i x}}{(s_i - 1)!} dx}
+  Probability density function; \deqn{f(x) = \sum_i m_i \frac{r_i^{s_i} x^{s_i-1} e^{-r_i x}}{(s_i - 1)!}}
 }
 \note{
   \code{herlang} requires shape parameters. 

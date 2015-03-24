@@ -26,7 +26,7 @@ namespace mexp {
 
     int n = (*(P[0])).nrow;
     int m = P.size;
-    int th = ldexp(1, m-1);
+    int th = pow2i(m-1);
     sci::range xrow(1, n);
     sci::dmatrix<double> xi(n, th);
     sci::dmatrix<double> tmp(n, th);

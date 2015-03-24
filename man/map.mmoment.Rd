@@ -17,11 +17,11 @@ map.acf(map)
 \item{lag}{an integer of time lag for corrleation.}
 }
 \details{
-  MAP parameters are \eqn{alpha}, \eqn{D0} and \eqn{D1};
-  \deqn{P = (-D0)^(-1) D1},
-  \deqn{s P = s}. Then the moments for MAP are
-  marginal moment; \deqn{m_k = k! s (-D0)^{-k} 1}
-  joint moment; \deqn{s_{ij}(lag) = i! j! s (-D0)^{-i} P^lag (-D0)^{-j} 1}
+  MAP parameters are \eqn{\alpha}, \eqn{D_0} and \eqn{D_1};
+  \deqn{P = (-D_0)^{-1} D_1} and \deqn{s P = s.}
+
+  Then the moments for MAP are marginal moment; \deqn{m_k = k! s (-D_0)^{-k} 1,}
+  joint moment; \deqn{s_{ij}(lag) = i! j! s (-D_0)^{-i} P^{lag} (-D_0)^{-j} 1,}
   k-lag correlation (autocorrelation); \deqn{rho(lag) = (s_{11}(lag) - m_1^2)/(m_2 - m_1^2)}
 }
 % \note{

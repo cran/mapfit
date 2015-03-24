@@ -15,7 +15,7 @@ erhmm(shape, alpha, rate, P, class = "CsparseMatrix")
 \item{class}{name of Matrix class for \code{P}.}
 }
 \details{
-  ER-HMM has parameters \eqn{alpha}, \eqn{shape}, \eqn{rate} and \eqn{P}. HMM state chages according to a discrete-time Markov chain with transition matrix \eqn{P}. At each HMM state, there is an inherent Erlang distriution as an output. This model can be converted to an MAP.
+  ER-HMM has parameters \eqn{\alpha}, \eqn{shape}, \eqn{rate} and \eqn{P}. HMM state chages according to a discrete-time Markov chain with transition matrix \eqn{P}. At each HMM state, there is an inherent Erlang distriution as an output. This model can be converted to a MAP.
 }
 \note{
   \code{erhmm} requires shape parameters. Other parameters have default values.

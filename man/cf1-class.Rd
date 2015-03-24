@@ -22,7 +22,7 @@ This is extended from \code{\linkS4class{ph}}.}
 }
 \section{Methods}{
   \describe{
-    \item{ph.moment}{\code{signature(ph = "cf1")}: ... }
+    \item{\code{\link{ph.moment}}}{\code{signature(ph = "cf1")}: ... }
     % \item{emfit.init}{\code{signature(model = "cf1")}: ... }
     % \item{emfit.mstep}{\code{signature(model = "cf1")}: ... }
   }

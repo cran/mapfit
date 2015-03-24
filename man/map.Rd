@@ -19,10 +19,10 @@ gmmpp(size, alpha, D0, D1, class = "dgeMatrix")
 \item{class}{name of Matrix class for \code{D0} and \code{D1}.}
 }
 \details{
-  MAP parameters are \eqn{alpha}, \eqn{D0} and \eqn{D1}. \eqn{alpha} is the probability vector to determine an initial phase at time 0. \eqn{D0} is an infinitesimal generator of underlyinc continuous-time Markov chain (CTMC) without arrival. \eqn{D1} is an infinitesimal generator of CTMC with arrival. The infinitesimal generator of underlying CTMC becomes \eqn{D0+D1}. In the stationary case, \eqn{alpha} is often given by a stationary vector satisfying \eqn{alpha (D0+D1) = alpha}.
+  MAP parameters are \eqn{alpha}, \eqn{D_0} and \eqn{D_1}. \eqn{alpha} is the probability vector to determine an initial phase at time 0. \eqn{D_0} is an infinitesimal generator of underlyinc continuous-time Markov chain (CTMC) without arrival. \eqn{D_1} is an infinitesimal generator of CTMC with arrival. The infinitesimal generator of underlying CTMC becomes \eqn{D_0+D_1}. In the stationary case, \eqn{\alpha} is often given by a stationary vector satisfying \eqn{\alpha (D_0+D_1) = \alpha}.
 
   \code{mmpp} generates an object of a specific MAP called MMPP.
-  MMPP (Markov modulated Poisson process) is an MAP whose \eqn{D1} is given by a diagonal matrix. Unlike to general MAPs, MMPP never changes the phase at which an arrival occurs.
+  MMPP (Markov modulated Poisson process) is an MAP whose \eqn{D_1} is given by a diagonal matrix. Unlike to general MAPs, MMPP never changes the phase at which an arrival occurs.
 
   \code{gmmpp} generates an object of \code{\linkS4class{gmmpp}}, which is exactly same as MMPP. In the estimation algorithm, \code{\linkS4class{gmmpp}} class uses an approximate method.
 }
