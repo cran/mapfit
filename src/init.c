@@ -4,7 +4,7 @@
 #define CALLDEF(name, n) {#name, (DL_FUNC) &name, n}
 #define EXTDEF(name, n)  {#name, (DL_FUNC) &name, n}
 
-static R_CallMethodDef callMethods[] = {
+static R_CallMethodDef CallEntries[] = {
     CALLDEF(phfit_estep_gen_wtime, 4),
     CALLDEF(phfit_estep_gen_group, 6),
     CALLDEF(phfit_herlang_estep_wtime, 2),
@@ -29,7 +29,7 @@ static R_CallMethodDef callMethods[] = {
 };
 
 void R_init_mapfit(DllInfo *dll) {
-    R_registerRoutines(dll, NULL, callMethods, NULL, NULL);
-//    R_useDynamicSymbols(dll, FALSE);
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
 }
 

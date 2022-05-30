@@ -1,58 +1,55 @@
 PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)
-PKG_CFLAGS = -DF77BLAS -DF77LAPACK -DMYSPBLAS \
-	-I mexp/src/ -I scimatrix/blas_wrap/ -I scimatrix/spblas_wrap/ -I mapfitlib/src/
-PKG_CXXFLAGS = -I mexp/src/ -I scimatrix/blas_wrap/ -I scimatrix/spblas_wrap/ -I mapfitlib/src/ \
-	-I scimatrix/include/ -I mexp/include/ -I mapfitlib/include/ -I mapfitlib/src/
+PKG_CFLAGS = -DF77BLAS -DF77LAPACK -DMYSPBLAS
 OBJECTS = \
 	init.o \
-	scimatrix/blas_wrap/blas.o \
-	scimatrix/blas_wrap/dgesv.o \
-	scimatrix/blas_wrap/dggglm.o \
-	scimatrix/blas_wrap/dkron.o \
-	scimatrix/blas_wrap/dpotrf.o \
-	scimatrix/blas_wrap/lapack.o \
-	scimatrix/blas_wrap/myblas.o \
-	scimatrix/spblas_wrap/arnoldi.o \
-	scimatrix/spblas_wrap/dspkron.o \
-	scimatrix/spblas_wrap/myspblas.o \
-	scimatrix/spblas_wrap/spblas.o \
-	scimatrix/matrix/blas_coomatrix.o \
-	scimatrix/matrix/blas_cscmatrix.o \
-	scimatrix/matrix/blas_csrmatrix.o \
-	scimatrix/matrix/blas_dmatrix.o \
-	scimatrix/matrix/blas_matrix.o \
-	scimatrix/matrix/blas_vector.o \
-	mexp/src/Cpoisson.o \
-	mexp/src/poisson.o \
-	mexp/src/unif.o \
-	mexp/src/mpow.o \
-	mexp/src/mexp_krylov.o \
-	mexp/src/mexp_pade.o \
-	mexp/src/mexp_unif.o \
-	mexp/src/mexp_unif_thread.o \
-	mexp/src/mexpc_unif.o \
-	mexp/src/mexpi_krylov.o \
-	mexp/src/mexpi_unif.o \
-	mexp/src/mexpi_unif_thread.o \
-	mexp/src/gs.o \
-	mexp/src/gth.o \
-	mapfitlib/src/annealing.o \
-	mapfitlib/src/erlang.o \
-	mapfitlib/src/hmm_estep.o \
-	mapfitlib/src/hmm_mstep.o \
-	mapfitlib/src/map_blas.o \
-	mapfitlib/src/map_estep.o \
-	mapfitlib/src/map_mstep.o \
-	mapfitlib/src/phase_erlang_estep.o \
-	mapfitlib/src/phase_erlang_mstep.o \
-	mapfitlib/src/phase_estep.o \
-	mapfitlib/src/phase_mstep.o \
-	mapfitlib/src/erf.o \
-	mapfitlib/src/gamma.o \
-	mapfitlib/src/pgamma.o \
-	mapfitlib/src/pnormal.o \
-	mapfitlib/src/gauss_inte.o \
-	mapfitlib/src/gmmpp.o \
+	blas.o \
+	dgesv.o \
+	dggglm.o \
+	dkron.o \
+	dpotrf.o \
+	lapack.o \
+	myblas.o \
+	arnoldi.o \
+	dspkron.o \
+	myspblas.o \
+	spblas.o \
+	blas_coomatrix.o \
+	blas_cscmatrix.o \
+	blas_csrmatrix.o \
+	blas_dmatrix.o \
+	blas_matrix.o \
+	blas_vector.o \
+	Cpoisson.o \
+	poisson.o \
+	unif.o \
+	mpow.o \
+	mexp_krylov.o \
+	mexp_pade.o \
+	mexp_unif.o \
+	mexp_unif_thread.o \
+	mexpc_unif.o \
+	mexpi_krylov.o \
+	mexpi_unif.o \
+	mexpi_unif_thread.o \
+	gs.o \
+	gth.o \
+	annealing.o \
+	erlang.o \
+	hmm_estep.o \
+	hmm_mstep.o \
+	map_blas.o \
+	map_estep.o \
+	map_mstep.o \
+	phase_erlang_estep.o \
+	phase_erlang_mstep.o \
+	phase_estep.o \
+	phase_mstep.o \
+	erf.o \
+	gamma.o \
+	pgamma.o \
+	pnormal.o \
+	gauss_inte.o \
+	gmmpp.o \
 	R_common.o \
 	R_mexp.o \
 	R_estep.o \

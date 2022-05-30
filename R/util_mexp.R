@@ -16,9 +16,9 @@ mexp.pade <- function(transpose, A, eps = sqrt(.Machine$double.eps)) {
     A <- as(A, "dgeMatrix")
   }
   if (transpose == TRUE) {
-    .Call(mexp_pade, dim(A)[1L], Matrix::t(A), eps)
+    .Call('mexp_pade', PACKAGE='mapfit', dim(A)[1L], Matrix::t(A), eps)
   } else {
-    .Call(mexp_pade, dim(A)[1L], A, eps)
+    .Call('mexp_pade', PACKAGE='mapfit', dim(A)[1L], A, eps)
   }
 }
 
@@ -28,9 +28,9 @@ mexp.uniform <- function(transpose, A, t = 1.0, eps = sqrt(.Machine$double.eps),
     A <- as(A, "dgeMatrix")
   }
   if (transpose == TRUE) {
-    .Call(mexp_unif, dim(A)[1L], t(A), t, eps, ufact, atol)
+    .Call('mexp_unif', PACKAGE='mapfit', dim(A)[1L], t(A), t, eps, ufact, atol)
   } else {
-    .Call(mexp_unif, dim(A)[1L], A, t, eps, ufact, atol)
+    .Call('mexp_unif', PACKAGE='mapfit', dim(A)[1L], A, t, eps, ufact, atol)
   }
 }
 
@@ -39,7 +39,7 @@ mexp.unifvec <- function(transpose, A, x, t = 1.0, eps = sqrt(.Machine$double.ep
   if (is.matrix(A)) {
     A <- as(A, class)
   }
-  .Call(mexp_unifvec, transpose, dim(A)[1L], A, x, t, eps, ufact, atol)
+  .Call('mexp_unifvec', PACKAGE='mapfit', transpose, dim(A)[1L], A, x, t, eps, ufact, atol)
 }
 
 mexp.unifseq <- function(transpose, A, x, t, eps = sqrt(.Machine$double.eps), 
@@ -47,7 +47,7 @@ mexp.unifseq <- function(transpose, A, x, t, eps = sqrt(.Machine$double.eps),
   if (is.matrix(A)) {
     A <- as(A, class)
   }
-  result <- .Call(mexp_unifseq, transpose, dim(A)[1L], A, x, diff(t), eps, ufact, atol)
+  result <- .Call('mexp_unifseq', PACKAGE='mapfit', transpose, dim(A)[1L], A, x, diff(t), eps, ufact, atol)
   list(time=t, result=result)
 }
 
@@ -56,7 +56,7 @@ mexp.kryvec <- function(transpose, A, x, t = 1.0, ksub = 10,
   if (is.matrix(A)) {
     A <- as(A, class)
   }
-  res <- .Call(mexp_kryvec, transpose, dim(A)[1L], A, x, t, ksub, ite, tol, eps)
+  res <- .Call('mexp_kryvec', PACKAGE='mapfit', transpose, dim(A)[1L], A, x, t, ksub, ite, tol, eps)
   list(value=res[[1L]], err=res[[2L]])
 }
 
@@ -122,9 +122,9 @@ mpow <- function(A, m, transpose = FALSE) {
     A <- as(A, "dgeMatrix")
   }
   if (transpose == TRUE) {
-    .Call(mpow_mat, t(A), m)
+    .Call('mpow_mat', PACKAGE='mapfit', t(A), m)
   } else {
-    .Call(mpow_mat, A, m)
+    .Call('mpow_mat', PACKAGE='mapfit', A, m)
   }
 }
 
@@ -133,13 +133,13 @@ msolve <- function(alpha, A, x, transpose = FALSE, maxiter = 10000,
   if (is.matrix(A)) {
     A <- as(A, "dgeMatrix")
   }
-  .Call(marsolve, transpose, alpha, A, x, maxiter, eps)
+  .Call('marsolve', PACKAGE='mapfit', transpose, alpha, A, x, maxiter, eps)
 }
 
 ctmc.st <- function(Q, maxiter = 2000, eps = sqrt(.Machine$double.eps)) {
   if (is.matrix(Q)) {
     Q <- as(Q, "dgeMatrix")
   }
-  .Call(ctmc_st, Q, maxiter, eps)
+  .Call('ctmc_st', PACKAGE='mapfit', Q, maxiter, eps)
 }
 

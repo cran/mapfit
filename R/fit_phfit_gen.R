@@ -49,18 +49,3 @@ phfit.gen <- function(ph, data, initialize = TRUE, control = list(), verbose = l
   class(result) <- "phfit.result"
   result
 }
-
-print.phfit.result <- function (x, ...) {
-  cat("\n")
-  cat(sprintf("Maximum LLF: %f\n", x$llf))
-  cat(sprintf("AIC: %f\n", x$aic))
-  cat(sprintf("Iteration:  %d / %d\n", x$iter, x$control$maxiter))
-  cat(sprintf("Computation time (user): %f\n", x$ctime))
-  cat(sprintf("Convergence: %s\n", x$convergence))
-  cat(sprintf("Error (abs): %e (tolerance %e)\n", x$aerror, x$control$abstol))
-  cat(sprintf("Error (rel): %e (tolerance %e)\n", x$rerror, x$control$reltol))
-  cat("\n")
-  emfit.print(x$model)
-  cat("\n\n")
-  invisible(x)
-}

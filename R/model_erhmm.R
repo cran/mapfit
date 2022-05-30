@@ -1,4 +1,114 @@
-## PH package for R
+#' Class of ER-HMM
+#' 
+#' Parameters for an ER-HMM (Hidden Markov Model with Erlang outputs).
+#' 
+#' @docType class
+#' @name erhmm-class
+#' @slot size The number of HMM states.
+#' @slot alpha A vector of initial probabilities for HMM states.
+#' @slot shape Shape parameters for Erlang distributions. The sum of shape parameters is the number of phases of MAP.
+#' @slot rate Rate parameters for Erlang distributions.
+#' @slot P An object of Matrix class for a transition probability matrix of HMM.
+#' 
+#' @note 
+#' Objects are usually created by an \link{erhmm}.
+#' 
+#' This class can be converted to \code{\linkS4class{map}}.
+#' 
+#' Methods:
+#' \describe{
+#' \item{ph.moment}{\code{signature(ph = "herlang")}: ... }
+#' \item{emfit.init}{\code{signature(model = "herlang", data = "phdata.wtime")}: ... }
+#' \item{emfit.init}{\code{signature(model = "herlang", data = "phdata.group")}: ... }
+#' \item{emfit.estep}{\code{signature(model = "herlang", data = "phdata.wtime")}: ... }
+#' \item{emfit.estep}{\code{signature(model = "herlang", data = "phdata.group")}: ... }
+#' \item{emfit.mstep}{\code{signature(model = "herlang")}: ... }
+#' }
+#' 
+#' @seealso Classes \code{\linkS4class{map}} and \code{\linkS4class{gmmpp}}.
+#' 
+#' @examples 
+#' ## create an ER-HMM consisting of two Erlang components with
+#' ## shape parameters 2 and 3.
+#' erhmm(c(2,3))
+#' 
+#' ## create an ER-HMM consisting of two Erlang components with
+#' ## shape parameters 2 and 3.
+#' erhmm(shape=c(2,3))
+#' 
+#' ## create an ER-HMM with specific parameters
+#' (param <- erhmm(shape=c(2,3), alpha=c(0.3,0.7),
+#'                 rate=c(1.0,10.0),
+#'                 P=rbind(c(0.3, 0.7), c(0.1, 0.9))))
+#'
+#' ## convert to a general MAP
+#' as(param, "map")
+#' 
+#' ## marginal moments of MAP
+#' map.mmoment(k=3, map=as(param, "map"))
+#' 
+#' ## joint moments of MAP
+#' map.jmoment(lag=1, map=as(param, "map"))
+#' 
+#' ## k-lag correlation
+#' map.acf(map=as(param, "map"))
+#' 
+#' @keywords classes
+#' @exportClass erhmm
+NULL
+
+#' ER-HMM (HMM with Erlang outputs)
+#' 
+#' A function to generate an object of \code{\linkS4class{erhmm}}.
+#' 
+#' @param shape An integer vector of shape parameters of Erlang outputs.
+#' @param alpha A vector for initial probabilities of HMM states.
+#' @param rate A vector of rate parameters of Erlang outputs.
+#' @param P An object of Matrix class for a transition probability matrix of HMM.
+#' @param class Name of Matrix class for \code{P}.
+#' @return 
+#' \code{erhmm} gives an object of ER-HMM.
+#' 
+#' @details 
+#' ER-HMM has parameters \eqn{\alpha}, \eqn{shape}, \eqn{rate} and \eqn{P}.
+#' HMM state chages according to a discrete-time Markov chain with transition
+#' matrix \eqn{P}. At each HMM state, there is an inherent Erlang distriution
+#' as an output. This model can be converted to a MAP.
+#' 
+#' @note
+#' \code{erhmm} requires shape parameters. Other parameters have default values.
+#' 
+#' @seealso
+#' \code{\link{map}}, \code{\link{gmmpp}}, \code{\link{map.mmoment}},
+#' \code{\link{map.jmoment}}, \code{\link{map.acf}}
+#' 
+#' @examples 
+#' ## create an ER-HMM consisting of two Erlang components with
+#' ## shape parameters 2 and 3.
+#' erhmm(c(2,3))
+#' 
+#' ## create an ER-HMM consisting of two Erlang components with
+#' ## shape parameters 2 and 3.
+#' erhmm(shape=c(2,3))
+#' 
+#' ## create an ER-HMM with specific parameters
+#' (param <- erhmm(shape=c(2,3), alpha=c(0.3,0.7),
+#'                 rate=c(1.0,10.0),
+#'                 P=rbind(c(0.3, 0.7), c(0.1, 0.9))))
+#'
+#' ## convert to a general MAP
+#' as(param, "map")
+#' 
+#' ## marginal moments of MAP
+#' map.mmoment(k=3, map=as(param, "map"))
+#' 
+#' ## joint moments of MAP
+#' map.jmoment(lag=1, map=as(param, "map"))
+#' 
+#' ## k-lag correlation
+#' map.acf(map=as(param, "map"))
+#' 
+#' @export
 
 erhmm <- function(shape, alpha, rate, P, class="CsparseMatrix") {
     size <- length(shape)
@@ -101,14 +211,14 @@ erhmm.param.kmeans <- function(shape, data, skelal, skelP, verbose, ...) {
   if (size >= 2) {
     result <- kmeans(data$time, size)
     for (k in 1:size) {
-      m <- mean(data$time[result$cluster == k])
+      m <- base::mean(data$time[result$cluster == k])
       s2 <- var(data$time[result$cluster == k])
       tmp[k] <- round(m^2 / s2)
       rate[k] <- 1.0 / m
     }
     rate <- rate[rank(tmp)] * shape
   } else {
-    m <- mean(data$time)
+    m <- base::mean(data$time)
     rate[1] <- shape[1] / m
   }
   alpha <- skelal * runif(size)
@@ -122,7 +232,7 @@ erhmm.param.kmeans <- function(shape, data, skelal, skelP, verbose, ...) {
 
 setMethod("emfit.estep", signature(model = "erhmm", data = "mapdata.time"),
   function(model, data, ...) {
-    res <- .Call(mapfit_hmm_erlang_estep, model, data)
+    res <- .Call('mapfit_hmm_erlang_estep', PACKAGE='mapfit', model, data)
     list(eres=list(eb=res[[1]], en=res[[2]], ew0=res[[3]], ew1=res[[4]]), llf=res[[5]])
   })
 
@@ -130,7 +240,7 @@ setMethod("emfit.estep", signature(model = "erhmm", data = "mapdata.time"),
 
 setMethod("emfit.mstep", signature(model = "erhmm"),
   function(model, eres, data, stationary = TRUE, ...) {
-    res <- .Call(mapfit_hmm_erlang_mstep, model, eres, data)
+    res <- .Call('mapfit_hmm_erlang_mstep', PACKAGE='mapfit', model, eres, data)
     model@rate <- res[[2]]
     model@P@x <- res[[3]]
     if (stationary) {

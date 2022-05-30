@@ -12,7 +12,7 @@ setClass("cf1", representation(rate="numeric"), contains="ph")
 
 setClass("herlang", representation(size="numeric", mixrate="numeric", shape="numeric", rate="numeric"))
 
-ph.moment <- function(k, ph, ...) { cat("Warning: Do not call me. Please check a class.\n") }
+ph.moment <- function(k, ph, ...) { cat("Warning (ph.moment): Do not call me. Please check a class.\n") }
 setGeneric("ph.moment")
 
 ## data class
@@ -35,30 +35,30 @@ setClass("mapdata.group", contains="mapdata")
 ## generic methods
 
 ### for data
-mapfit.mean <- function(x, ...) { cat("Warning: Do not call me. Please check a class.\n") }
+mapfit.mean <- function(x, ...) { cat("Warning (mapfit.mean): Do not call me. Please check a class.\n") }
 setGeneric("mapfit.mean")
 
-mean <- function(x, ...) { cat("Warning: Do not call me. Please check a class.\n") }
-setGeneric("mapfit.mean")
+# mean <- function(x, ...) { cat("Warning (mean): Do not call me. Please check a class.\n") }
+# setGeneric("mapfit.mean")
 
 ## initial values
-emfit.init <- function(model, data, verbose, ...) { cat("Warning: Do not call me. Please check a class.\n") }
+emfit.init <- function(model, data, verbose, ...) { cat("Warning (emfit.init): Do not call me. Please check a class.\n") }
 setGeneric("emfit.init")
 
 ## estep
-emfit.estep <- function(model, data, ...) { cat("Warning: Do not call me. Please check a class.\n") }
+emfit.estep <- function(model, data, ...) { cat("Warning (emfit.estep): Do not call me. Please check a class.\n") }
 setGeneric("emfit.estep")
 
 ## mstep
-emfit.mstep <- function(model, eres, data, ...) { cat("Warning: Do not call me. Please check a class.\n") }
+emfit.mstep <- function(model, eres, data, ...) { cat("Warning (emfit.mstep): Do not call me. Please check a class.\n") }
 setGeneric("emfit.mstep")
 
 ## degrees of freedom
-emfit.df <- function(model, ...) { cat("Warning: Do not call me. Please check a class.\n") }
+emfit.df <- function(model, ...) { cat("Warning (emfit.df): Do not call me. Please check a class.\n") }
 setGeneric("emfit.df")
 
 ## print
-emfit.print <- function(model, ...) { cat("Warning: Do not call me. Please check a class.\n") }
+emfit.print <- function(model, ...) { cat("Warning (emfit.print): Do not call me. Please check a class.\n") }
 setGeneric("emfit.print")
 
 setMethod("print", signature(x = "ph"), function(x, ...) emfit.print(x, ...))

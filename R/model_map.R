@@ -1,4 +1,122 @@
+#' Classes of MAP
+#' 
+#' Parameters for MAP and MMPP.
+#' 
+#' @docType class
+#' @name map-class
+#' @aliases gmmpp-class
+#' @slot size The number of phases (internal states).
+#' @slot alpha A probability (row) vector to decide an initial phase.
+#' @slot D0 A square matrix that means transition rates without arrivals.
+#' @slot D1 A square matrix that means transition rates with arrivals. In the case of MMPP, D1 should be a diagonal matrix.
+#' @slot df The number of free parameters.
+#' 
+#' @note 
+#' Objects are usually created by \link{map}, \link{mmpp} or \link{gmmpp}.
+#' 
+#' @seealso Classes \code{\linkS4class{erhmm}}.
+#' 
+#' @examples 
+#' ## create an MAP (full matrix) with 5 phases
+#' map(5)
+#' 
+#' ## create an MAP (full matrix) with 5 phases
+#' map(size=5)
+#' 
+#' ## create an MMPP with 5 states
+#' mmpp(5)
+#' 
+#' ## create an MMPP with 5 states for approximate
+#' ## estimation
+#' gmmpp(5)
+#' 
+#' ## create an MAP with specific parameters
+#' (param <- map(alpha=c(1,0,0),
+#'               D0=rbind(c(-4,2,0),c(2,-5,1),c(1,0,-4)),
+#'               D1=rbind(c(1,1,0),c(1,0,1),c(2,0,1))))
+#'
+#' ## marginal moments of MAP
+#' map.mmoment(k=3, map=param)
+#' 
+#' ## joint moments of MAP
+#' map.jmoment(lag=1, map=param)
+#' 
+#' ## k-lag correlation
+#' map.acf(map=param)
+#' 
+#' @keywords classes
+#' @exportClass map
+NULL
 
+#' Markovian Arrival Process (MAP)
+#' 
+#' Functions to generate an object of \code{\linkS4class{map}}.
+#' 
+#' @aliases mmpp gmmpp
+#' 
+#' @param size An integer for the number of phases.
+#' @param alpha A vector of probabilities for determing an initial phase.
+#' @param D0 An object of Matrix class for the initesmal generator without arrivals.
+#' @param D1 An object of Matrix class for the initesmal generator with arrivals.
+#' @param class Name of Matrix class for \code{D0} and \code{D1}.
+#' @return 
+#' \code{map} gives an object of general MAP.
+#' \code{mmpp} gives an object of MMPP with default parameters.
+#' \code{gmmpp} gives an object of MMPP which uses an approximate estimation algorithm.
+#' 
+#' @details 
+#' MAP parameters are \eqn{alpha}, \eqn{D_0} and \eqn{D_1}. \eqn{alpha} is the
+#' probability vector to determine an initial phase at time 0. \eqn{D_0} is an
+#' infinitesimal generator of underlyinc continuous-time Markov chain (CTMC)
+#' without arrival. \eqn{D_1} is an infinitesimal generator of CTMC with arrival.
+#' The infinitesimal generator of underlying CTMC becomes \eqn{D_0+D_1}.
+#' In the stationary case, \eqn{\alpha} is often given by a stationary vector
+#' satisfying \eqn{\alpha (D_0+D_1) = \alpha}.
+#' 
+#' \code{mmpp} generates an object of a specific MAP called MMPP.
+#' MMPP (Markov modulated Poisson process) is an MAP whose \eqn{D_1} is given by
+#' a diagonal matrix. Unlike to general MAPs, MMPP never changes the phase at
+#' which an arrival occurs.
+#' 
+#' \code{gmmpp} generates an object of \code{\linkS4class{gmmpp}}, which is
+#' exactly same as MMPP. In the estimation algorithm, \code{\linkS4class{gmmpp}}
+#' class uses an approximate method.
+#' 
+#' @note 
+#' \code{map} and \code{gmmpp} require either \code{size} or (\code{alpha}, \code{D0}, \code{D1}).
+#' 
+#' @seealso \code{\link{erhmm}}, \code{\link{map.mmoment}}, \code{\link{map.jmoment}}, \code{\link{map.acf}}
+#' 
+#' @examples
+#' ## create an MAP (full matrix) with 5 phases
+#' map(5)
+#' 
+#' ## create an MAP (full matrix) with 5 phases
+#' map(size=5)
+#' 
+#' ## create an MMPP with 5 states
+#' mmpp(5)
+#' 
+#' ## create an MMPP with 5 states for approximate
+#' ## estimation
+#' gmmpp(5)
+#' 
+#' ## create an MAP with specific parameters
+#' (param <- map(alpha=c(1,0,0),
+#'               D0=rbind(c(-4,2,0),c(2,-5,1),c(1,0,-4)),
+#'               D1=rbind(c(1,1,0),c(1,0,1),c(2,0,1))))
+#'
+#' ## marginal moments of MAP
+#' map.mmoment(k=3, map=param)
+#' 
+#' ## joint moments of MAP
+#' map.jmoment(lag=1, map=param)
+#' 
+#' ## k-lag correlation
+#' map.acf(map=param)
+#' 
+#' @export
+  
 map <- function(size, alpha, D0, D1, class="CsparseMatrix") {
   if (missing(size)) {
     if (missing(alpha) || missing(D0) || missing(D1)) {
@@ -37,6 +155,10 @@ map <- function(size, alpha, D0, D1, class="CsparseMatrix") {
     sum(abs(D1) > zero) - size + sum(abs(diag(D0)) < zero)
   new("map", size=size, alpha=alpha, D0=D0, D1=D1, df=df)
 }
+
+#' @rdname map
+#' @aliases mmpp
+#' @export
 
 mmpp <- function(size, class="CsparseMatrix") {
   alpha <- rep(1.0/size, size)
@@ -102,6 +224,59 @@ mmpp.tridiag <- function(size, class="CsparseMatrix") {
   }
 }
 
+#' Moments for Markovian arrival pcess (MAP)
+#' 
+#' Moments for MAP.
+#' 
+#' @aliases map.mmoment map.jmoment map.acf
+#' 
+#' @param map An object of S4 class of MAP (\code{\linkS4class{map}}, \code{\linkS4class{gmmpp}}).
+#' @param k An integer of dgrees of moments.
+#' @param lag An integer of time lag for corrleation.
+#' @return 
+#' \code{map.mmoment} gives a vector of up to k moments.
+#' \code{map.jmoment} gives a matrix of \eqn{s_{ij}(lag), i=1,..,n, j=1,..,n} where n is the size of phases.
+#' \code{map.acf} gives a vector of up to n-lag correlation, where n is the size of phases.
+#' 
+#' @details 
+#' MAP parameters are \eqn{\alpha}, \eqn{D_0} and \eqn{D_1};
+#' \deqn{P = (-D_0)^{-1} D_1} and \deqn{s P = s.}
+#' 
+#' Then the moments for MAP are marginal moment; \deqn{m_k = k! s (-D_0)^{-k} 1,}
+#' joint moment; \deqn{s_{ij}(lag) = i! j! s (-D_0)^{-i} P^{lag} (-D_0)^{-j} 1,}
+#' k-lag correlation (autocorrelation); \deqn{rho(lag) = (s_{11}(lag) - m_1^2)/(m_2 - m_1^2)}
+#' 
+#' @note 
+#' \code{map.mmoment} is a generic function for \code{\linkS4class{ph}} and \code{\linkS4class{herlang}}.
+#' 
+#' @seealso \code{\link{map}}, \code{\link{gmmpp}}, \code{\link{erhmm}}
+#' 
+#' @examples 
+#' ## create an MAP with specific parameters
+#' (param1 <- map(alpha=c(1,0,0),
+#'                D0=rbind(c(-4,2,0),c(2,-5,1),c(1,0,-4)),
+#'                D1=rbind(c(1,1,0),c(1,0,1),c(2,0,1))))
+#'
+#' ## create an ER-HMM with specific parameters
+#' (param2 <- erhmm(shape=c(2,3), alpha=c(0.3,0.7),
+#'                  rate=c(1.0,10.0),
+#'                  P=rbind(c(0.3, 0.7), c(0.1, 0.9))))
+#'
+#' ## marginal moments of MAP
+#' map.mmoment(k=3, map=param1)
+#' map.mmoment(k=3, map=as(param2, "map"))
+#' 
+#' ## joint moments of MAP
+#' map.jmoment(lag=1, map=param1)
+#' map.jmoment(lag=1, map=as(param2, "map"))
+#' 
+#' ## k-lag correlation
+#' map.acf(map=param1)
+#' map.acf(map=as(param2, "map"))
+#' 
+#' @keywords distribution
+#' @export
+
 map.mmoment <- function(k, map) {
   D0 <- as.matrix(map@D0)
   D1 <- as.matrix(map@D1)
@@ -117,6 +292,10 @@ map.mmoment <- function(k, map) {
   }
   res
 }
+
+#' @rdname map.mmoment
+#' @aliases map.jmoment
+#' @export
 
 map.jmoment <- function(lag, map) {
   D0 <- as.matrix(map@D0)
@@ -142,6 +321,10 @@ map.jmoment <- function(lag, map) {
   }
   res
 }
+
+#' @rdname map.mmoment
+#' @aliases map.acf
+#' @export
 
 map.acf <- function(map) {
   D0 <- as.matrix(map@D0)
@@ -223,7 +406,7 @@ setMethod("emfit.estep", signature(model = "map", data = "mapdata"),
   function(model, data, ufact = 1.01, eps = 1.0e-8, ...) {
     data@data$instant[is.na(data@data$counts)] <- 0
     data@data$counts[is.na(data@data$counts)] <- -1
-    res <- .Call(mapfit_estep_gen_group, model, data, eps, ufact)
+    res <- .Call('mapfit_estep_gen_group', PACKAGE='mapfit', model, data, eps, ufact)
     list(eres=list(eb=res[[1]], ez=res[[2]], en0=res[[3]], en1=res[[4]]), llf=res[[5]])
   })
 
@@ -231,7 +414,7 @@ setMethod("emfit.estep", signature(model = "map", data = "mapdata"),
 
 setMethod("emfit.mstep", signature(model = "map"),
   function(model, eres, data, stationary = TRUE, ...) {
-    res <- .Call(mapfit_mstep_gen, model, eres, data)
+    res <- .Call('mapfit_mstep_gen', PACKAGE='mapfit', model, eres, data)
     model@D0@x <- res[[2]]
     model@D1@x <- res[[3]]
     if (stationary)

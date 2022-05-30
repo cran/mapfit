@@ -1,3 +1,6 @@
+#' @rdname map
+#' @aliases gmmpp
+#' @export
 
 gmmpp <- function(size, alpha, D0, D1, class="dgeMatrix") {
   if (missing(size)) {
@@ -100,7 +103,7 @@ gmmpp.param.kmeans <- function(size, data, skelal, skelD0, skelD1, verbose, ...)
 
 setMethod("emfit.estep", signature(model = "gmmpp", data = "mapdata"),
   function(model, data, eps = 1.0e-8, devide = 20, ...) {
-    res <- .Call(mapfit_estep_gmmpp, model, data, eps, devide)
+    res <- .Call('mapfit_estep_gmmpp', PACKAGE='mapfit', model, data, eps, devide)
     list(eres=list(eb=res[[1]], ez=res[[2]], en0=res[[3]], en1=res[[4]]), llf=res[[5]])
   })
 

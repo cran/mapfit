@@ -8,10 +8,9 @@
 #include <Rinternals.h>
 #include <Rdefines.h>
 
-#include "poisson.hh"
-#include "mexp.hh"
-#include "phfit.hh"
-#include "mapfit.hh"
+#include "mexp.h"
+#include "phfit.h"
+#include "mapfit.h"
 
 sci::matrix<double>* ccMatrix(const sci::matrix<double>& m, SEXP& v);
 
