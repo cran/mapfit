@@ -1,59 +1,15 @@
 PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)
-PKG_CFLAGS = -DF77BLAS -DF77LAPACK -DMYSPBLAS
 OBJECTS = \
-	init.o \
-	blas.o \
-	dgesv.o \
-	dggglm.o \
-	dkron.o \
-	dpotrf.o \
-	lapack.o \
-	myblas.o \
-	arnoldi.o \
-	dspkron.o \
-	myspblas.o \
-	spblas.o \
-	blas_coomatrix.o \
-	blas_cscmatrix.o \
-	blas_csrmatrix.o \
-	blas_dmatrix.o \
-	blas_matrix.o \
-	blas_vector.o \
-	Cpoisson.o \
-	poisson.o \
-	unif.o \
-	mpow.o \
-	mexp_krylov.o \
-	mexp_pade.o \
-	mexp_unif.o \
-	mexp_unif_thread.o \
-	mexpc_unif.o \
-	mexpi_krylov.o \
-	mexpi_unif.o \
-	mexpi_unif_thread.o \
-	gs.o \
-	gth.o \
-	annealing.o \
-	erlang.o \
-	hmm_estep.o \
-	hmm_mstep.o \
-	map_blas.o \
-	map_estep.o \
-	map_mstep.o \
-	phase_erlang_estep.o \
-	phase_erlang_mstep.o \
-	phase_estep.o \
-	phase_mstep.o \
-	erf.o \
 	gamma.o \
-	pgamma.o \
-	pnormal.o \
-	gauss_inte.o \
-	gmmpp.o \
-	R_common.o \
-	R_mexp.o \
-	R_estep.o \
-	R_mstep.o
+	phase_dist.o \
+	emfit_phase_gen.o \
+	emfit_phase_cf1.o \
+	emfit_phase_herlang.o \
+	emfit_map_gen.o \
+	emfit_map_erhmm.o \
+	emfit_map_gmmpp.o \
+	gth.o \
+	RcppExports.o
 
 
 

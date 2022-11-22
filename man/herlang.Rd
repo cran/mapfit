@@ -2,70 +2,34 @@
 % Please edit documentation in R/model_herlang.R
 \name{herlang}
 \alias{herlang}
-\alias{dherlang}
-\alias{pherlang}
-\alias{rherlang}
-\title{Hyper-Erlang Distribution}
+\title{Create HErlang distribution}
 \usage{
 herlang(
+  size,
   shape,
   mixrate = rep(1/length(shape), length(shape)),
   rate = rep(1, length(shape))
 )
-
-dherlang(x, herlang = herlang(shape = c(1)), log = FALSE)
-
-pherlang(q, herlang = herlang(shape = c(1)), lower.tail = TRUE, log.p = FALSE)
-
-rherlang(n, herlang = herlang(shape = c(1)))
 }
 \arguments{
-\item{shape}{An integer vector of shape parameters of Erlang components.}
+\item{size}{An integer of the number of phases}
 
-\item{mixrate}{A vector for the initial probabilities of hyper-Erlang distribution.}
+\item{shape}{A vector of shape parameters}
 
-\item{rate}{A vector of rate parameters of Erlang components.}
+\item{mixrate}{A vector of initial probability (mixrate)}
 
-\item{x}{Vectors of quantiles.}
-
-\item{herlang}{An object of S4 class of hyper Erlang (\code{\linkS4class{herlang}}).}
-
-\item{log}{Logical; if \code{TRUE}, the log density is returned.}
-
-\item{q}{Vectors of quantiles.}
-
-\item{lower.tail}{Logical; if \code{TRUE}, probabilities are \code{P[X <= x]}, otherwise, \code{P[X > x]}.}
-
-\item{log.p}{Logical; if \code{TRUE}, the log probability is returned.}
-
-\item{n}{Number of observations.}
-
-\item{p}{A vector of probabilities.}
+\item{rate}{A vector of rate parameters}
 }
 \value{
-\code{herlang} gives an object of hyper-Erlang distribution.
-\code{dherlang} gives the density function, \code{pherlang} gives the distribution function,
-and \code{rherlang} generates random samples.
+An instance of HErlang
 }
 \description{
-Density function, distribution function and
-random generation for the hyper-Erlang distribution, and
-a function to generate an object of \code{\linkS4class{herlang}}.
-}
-\details{
-The hyper-Erlang distribution with parameters \eqn{m_i} (\code{mixrate}),
-\eqn{s_i} (\code{shape}) and \eqn{r_i} (\code{rate}):
-Cumulative probability function; \deqn{F(q) = \sum_i \int_0^q m_i \frac{r_i^{s_i} x^{s_i-1} e^{-r_i x}}{(s_i - 1)!} dx}
-Probability density function; \deqn{f(x) = \sum_i m_i \frac{r_i^{s_i} x^{s_i-1} e^{-r_i x}}{(s_i - 1)!}}
+Create an instance of Hyper-Erlang distribution
 }
 \note{
-\code{herlang} requires shape parameters.
+If shape is given, shape is used even though size is set.
 }
 \examples{
-## create a hyper Erlang consisting of two Erlang
-## with shape parameters 2 and 3.
-(param1 <- herlang(c(2,3)))
-
 ## create a hyper Erlang consisting of two Erlang
 ## with shape parameters 2 and 3.
 (param1 <- herlang(shape=c(2,3)))
@@ -74,19 +38,15 @@ Probability density function; \deqn{f(x) = \sum_i m_i \frac{r_i^{s_i} x^{s_i-1} 
 (param2 <- herlang(shape=c(2,3), mixrate=c(0.3,0.7), rate=c(1.0,10.0)))
 
 ## convert to a general PH
-as(param2, "ph")
+as.gph(param2)
 
 ## p.d.f. for 0, 0.1, ..., 1
-(dherlang(x=seq(0, 1, 0.1), herlang=param2))
+(dphase(x=seq(0, 1, 0.1), ph=param2))
 
 ## c.d.f. for 0, 0.1, ..., 1
-(pherlang(q=seq(0, 1, 0.1), herlang=param2))
+(pphase(q=seq(0, 1, 0.1), ph=param2))
 
 ## generate 10 samples
-(rherlang(n=10, herlang=param2))
+(rphase(n=10, ph=param2))
 
 }
-\seealso{
-\code{\link{ph}}, \code{\link{herlang}}
-}
-\keyword{distribution}

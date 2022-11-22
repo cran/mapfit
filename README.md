@@ -4,17 +4,23 @@
 # mapfit
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/okamumu/mapfit/workflows/R-CMD-check/badge.svg)](https://github.com/okamumu/mapfit/actions)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/mapfit)](https://CRAN.R-project.org/package=mapfit)
+[![Codecov test
+coverage](https://codecov.io/gh/okamumu/mapfit/branch/main/graph/badge.svg)](https://app.codecov.io/gh/okamumu/mapfit?branch=main)
 <!-- badges: end -->
 
 The goal of mapfit is to estimate parameters of phase-type distribution
 (PH) and Markovian arrival process (MAP). PH/MAP fitting is required in
 the analysis of non-Markovian models involving general distributions. By
-replacing general distributions with estimated PH/MAP, we have
+replacing general distributions with estimated PH/MAP, we can
 approximate the non-Markovian models with continuous-time Markov chains
 (CTMCs). Our tool offers
 
--   PH/MAP fitting with grouped data
--   PH fitting with theoretical probability density functions.
+- PH/MAP fitting with grouped data
+- PH fitting with theoretical probability density functions.
 
 These features help us to analyze non-Markovian models with phase
 expansion.
@@ -38,39 +44,31 @@ PH distribution is defined as the time to absorption in a
 time-homogeneous CTMC with an absorbing state. The p.d.f. and cumulative
 distribution function (c.d.f.) are mathematically given as the
 expressions using matrix exponential. Let
-![\\boldsymbol{\\alpha}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7B%5Calpha%7D "\boldsymbol{\alpha}")
+![\boldsymbol{\alpha}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7B%5Calpha%7D "\boldsymbol{\alpha}")
 and
-![\\boldsymbol{Q}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BQ%7D "\boldsymbol{Q}")
+![\boldsymbol{Q}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BQ%7D "\boldsymbol{Q}")
 denote a probability (row) vector for determining an initial state and
 an infinitesimal generator for transient states, respectively. Since the
 c.d.f. is given by the probability that the current state of underlying
 CTMC has already been absorbed, the c.d.f. of PH distribution is given
 by
 
-![
-F(x) = 1 - \\boldsymbol{\\alpha} \\exp(\\boldsymbol{Q} x) \\boldsymbol{1},
-](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%0AF%28x%29%20%3D%201%20-%20%5Cboldsymbol%7B%5Calpha%7D%20%5Cexp%28%5Cboldsymbol%7BQ%7D%20x%29%20%5Cboldsymbol%7B1%7D%2C%0A "
-F(x) = 1 - \boldsymbol{\alpha} \exp(\boldsymbol{Q} x) \boldsymbol{1},
-")
+![F(x) = 1 - \boldsymbol{\alpha} \exp(\boldsymbol{Q} x) \boldsymbol{1},](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;F%28x%29%20%3D%201%20-%20%5Cboldsymbol%7B%5Calpha%7D%20%5Cexp%28%5Cboldsymbol%7BQ%7D%20x%29%20%5Cboldsymbol%7B1%7D%2C "F(x) = 1 - \boldsymbol{\alpha} \exp(\boldsymbol{Q} x) \boldsymbol{1},")
 
 where
-![\\boldsymbol{1}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7B1%7D "\boldsymbol{1}")
+![\boldsymbol{1}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7B1%7D "\boldsymbol{1}")
 is a column vector whose entries are 1. Also the p.d.f. can be obtained
 by taking the first derivative of the c.d.f.;
 
-![
-f(x) = \\boldsymbol{\\alpha} \\exp(\\boldsymbol{Q} x) \\boldsymbol{\\xi},
-](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%0Af%28x%29%20%3D%20%5Cboldsymbol%7B%5Calpha%7D%20%5Cexp%28%5Cboldsymbol%7BQ%7D%20x%29%20%5Cboldsymbol%7B%5Cxi%7D%2C%0A "
-f(x) = \boldsymbol{\alpha} \exp(\boldsymbol{Q} x) \boldsymbol{\xi},
-")
+![f(x) = \boldsymbol{\alpha} \exp(\boldsymbol{Q} x) \boldsymbol{\xi},](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;f%28x%29%20%3D%20%5Cboldsymbol%7B%5Calpha%7D%20%5Cexp%28%5Cboldsymbol%7BQ%7D%20x%29%20%5Cboldsymbol%7B%5Cxi%7D%2C "f(x) = \boldsymbol{\alpha} \exp(\boldsymbol{Q} x) \boldsymbol{\xi},")
 
 where
-![\\boldsymbol{\\xi} = - \\boldsymbol{Q} \\boldsymbol{1}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7B%5Cxi%7D%20%3D%20-%20%5Cboldsymbol%7BQ%7D%20%5Cboldsymbol%7B1%7D "\boldsymbol{\xi} = - \boldsymbol{Q} \boldsymbol{1}").
+![\boldsymbol{\xi} = - \boldsymbol{Q} \boldsymbol{1}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7B%5Cxi%7D%20%3D%20-%20%5Cboldsymbol%7BQ%7D%20%5Cboldsymbol%7B1%7D "\boldsymbol{\xi} = - \boldsymbol{Q} \boldsymbol{1}").
 
 The purpose of PH fitting is to determine PH parameters
-![\\boldsymbol{\\alpha}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7B%5Calpha%7D "\boldsymbol{\alpha}")
+![\boldsymbol{\alpha}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7B%5Calpha%7D "\boldsymbol{\alpha}")
 and
-![\\boldsymbol{Q}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BQ%7D "\boldsymbol{Q}")
+![\boldsymbol{Q}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BQ%7D "\boldsymbol{Q}")
 so that the estimated PH distribution fits to observed data. There are
 two different approaches; MM (moment match) method and MLE (maximum
 likelihood estimation). The MM method is to find PH parameters whose
@@ -143,73 +141,71 @@ at 100.
 |  \[90, 100\]  |   0    |
 |  \[100, Inf)  |  `NA`  |
 
-On the other hand, the aboe table shows an example of another grouped
+On the other hand, the above table shows an example of another grouped
 data. In this case, several samples are truncated at 100 but we do not
 know the exact number of truncated samples.
 
 ### Models and Methods
 
 PH distributions are classified to sub-classes by the structure of
-![\\boldsymbol{\\alpha}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7B%5Calpha%7D "\boldsymbol{\alpha}")
+![\boldsymbol{\alpha}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7B%5Calpha%7D "\boldsymbol{\alpha}")
 and
-![\\boldsymbol{Q}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BQ%7D "\boldsymbol{Q}"),
+![\boldsymbol{Q}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BQ%7D "\boldsymbol{Q}"),
 and the parameter estimation algorithms depend on the class of PH
 distribution. The tool deals with the following classes of PH
 distribution:
 
--   general PH: The PH distribution in which there are no constraints on
-    ![\\boldsymbol{\\alpha}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7B%5Calpha%7D "\boldsymbol{\alpha}")
-    and
-    ![\\boldsymbol{Q}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BQ%7D "\boldsymbol{Q}").
-    In the tool, this is referred to as \`ph’ class.
--   canonical form 1 (CF1): One of the minimal representations of
-    acyclic PH distribution. The matrix
-    ![\\boldsymbol{Q}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BQ%7D "\boldsymbol{Q}")
-    becomes a bidiagonal matrix whose entries are sorted in increasing
-    order. In the tool, this is referred to as \`cf1’ class.
--   hyper-Erlang distribution: One of the representations of acyclic PH
-    distribution. The distribution consists of a mixture of Erlang
-    distributions. In the tool, this is referred to as \`herlang’ class.
+- general PH: The PH distribution in which there are no constraints on
+  ![\boldsymbol{\alpha}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7B%5Calpha%7D "\boldsymbol{\alpha}")
+  and
+  ![\boldsymbol{Q}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BQ%7D "\boldsymbol{Q}").
+  In the tool, this is referred to as \`ph’ class.
+- canonical form 1 (CF1): One of the minimal representations of acyclic
+  PH distribution. The matrix
+  ![\boldsymbol{Q}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BQ%7D "\boldsymbol{Q}")
+  becomes a bidiagonal matrix whose entries are sorted in increasing
+  order. In the tool, this is referred to as \`cf1’ class.
+- hyper-Erlang distribution: One of the representations of acyclic PH
+  distribution. The distribution consists of a mixture of Erlang
+  distributions. In the tool, this is referred to as \`herlang’ class.
 
 The parameters of `ph` class are
-![\\boldsymbol{\\alpha}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7B%5Calpha%7D "\boldsymbol{\alpha}"),
-![\\boldsymbol{Q}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BQ%7D "\boldsymbol{Q}")
+![\boldsymbol{\alpha}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7B%5Calpha%7D "\boldsymbol{\alpha}"),
+![\boldsymbol{Q}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BQ%7D "\boldsymbol{Q}")
 and
-![\\boldsymbol{\\xi}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7B%5Cxi%7D "\boldsymbol{\xi}"),
-which are defined as members, called *slots*, of S4 class in R. To
-represent the matrix
-![\\boldsymbol{Q}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BQ%7D "\boldsymbol{Q}"),
-we use `Matrix` package which is an external package of R. The slots of
-`cf1` class are inherited from the `ph` class. In addition to inherited
-slots, `cf1` has a slot `rate` to store the absolute values of diagonal
-elements of
-![\\boldsymbol{Q}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BQ%7D "\boldsymbol{Q}").
-The `herlang` class has the slots for the mixed ratio, shape parameters
-of Erlang components, rate parameters of Erlang components. Both of
-`cf1` and `herlang` classes can be transformed to `ph` class by using
-\`as’ method of R.
+![\boldsymbol{\xi}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7B%5Cxi%7D "\boldsymbol{\xi}"),
+which are defined as members of R6 class in R. To represent the matrix
+![\boldsymbol{Q}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BQ%7D "\boldsymbol{Q}"),
+we use `Matrix` package which is an external package of R. The `cf1`
+class are inherited from the `ph` class. In addition to inherited
+members, `cf1` has a member `rate` to store the absolute values of
+diagonal elements of
+![\boldsymbol{Q}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BQ%7D "\boldsymbol{Q}").
+The `herlang` class has the member for the mixed ratio as `alpha`, shape
+parameters of Erlang components `shape`, rate parameters of Erlang
+components `rate`. `herlang` classes can be transformed to `ph` class by
+using `as.gph` method of R. `cf1` has members for `alpha`, `Q` and `xi`.
 
 The R functions for PH parameter estimation are;
 
--   `phfit.point`: MLEs for general PH, CF1 and hyper-Erlang
-    distribution from point and weighted point data. The estimation
-    algorithms for general PH and CF1 are the EM algorithms proposed in
-    \[1\]. The algorithm for hyper-Erlang distribution is the EM
-    algorithm with shape parameter selection described in \[2,3\].
--   `phfit.group`: MLEs for general PH, CF1 and hyper-Erlang
-    distribution from grouped and truncated data. The estimation
-    algorithms for general PH and CF1 are the EM algorithms proposed in
-    \[4\]. The algorithm for hyper-Erlang distribution is the EM
-    algorithm with shape parameter selection, which is originally
-    developed as an extension of \[2,3\].
--   `phfit.density`: MLEs for general PH, CF1 and hyper-Erlang
-    distribution from a density function defined on the positive domain
-    \[0, Inf). The function `phfit.density` calls `phfit.point` after
-    making weighted point data. The weighted point data is generated by
-    numerical quadrature. In the tool, the numerical quadrature is
-    performed with a double exponential (DE) formula.
--   `phfit.3mom`: MM methods for acyclic PH distribution with the first
-    three moments \[5,6\].
+- `phfit.point`: MLEs for general PH, CF1 and hyper-Erlang distribution
+  from point and weighted point data. The estimation algorithms for
+  general PH and CF1 are the EM algorithms proposed in \[1\]. The
+  algorithm for hyper-Erlang distribution is the EM algorithm with shape
+  parameter selection described in \[2,3\].
+- `phfit.group`: MLEs for general PH, CF1 and hyper-Erlang distribution
+  from grouped and truncated data. The estimation algorithms for general
+  PH and CF1 are the EM algorithms proposed in \[4\]. The algorithm for
+  hyper-Erlang distribution is the EM algorithm with shape parameter
+  selection, which is originally developed as an extension of \[2,3\].
+- `phfit.density`: MLEs for general PH, CF1 and hyper-Erlang
+  distribution from a density function defined on the positive domain
+  \[0, Inf). The function `phfit.density` calls `phfit.point` after
+  making weighted point data. The weighted point data is generated by
+  numerical quadrature. In the tool, the numerical quadrature is
+  performed with a double exponential (DE) formula.
+- `phfit.3mom`: MM methods for acyclic PH distribution with the first
+  three moments \[5,6\].
 
 The functions `phfit.point`, `phfit.group` and `phfit.density` select an
 appropriate algorithm depending on the class of a given PH distribution.
@@ -235,7 +231,7 @@ wsample <- rweibull(100, shape=2, scale=1)
 
 `wsample` is set to a vector including a hundred IID samples generated
 from Weibull distribution with scale parameter 1 and shape parameter 2.
-`set.seed(1234)` means determing the seed of random numbers.
+`set.seed(1234)` means determining the seed of random numbers.
 
 ``` r
 wsample
@@ -267,25 +263,26 @@ respectively;
 ## phfit with GPH
 phfit.point(ph=ph(5), x=wsample)
 #> 
-#> Maximum LLF: -59.436973
-#> AIC: 176.873945
+#> Maximum LLF: -59.436999
+#> DF: 29
+#> AIC: 176.873999
 #> Iteration:  2000 / 2000
-#> Computation time (user): 0.924000
+#> Computation time (user): 1.978000
 #> Convergence: FALSE
-#> Error (abs): 2.658070e-05 (tolerance Inf)
-#> Error (rel): 4.472080e-07 (tolerance 1.490116e-08)
+#> Error (abs): 2.658413e-05 (tolerance Inf)
+#> Error (rel): 4.472655e-07 (tolerance 1.490116e-08)
 #> 
 #> Size : 5
-#> Initial :  8.354082e-11 0.9958273 0.0006050049 0.003567682 9.063406e-95 
-#> Exit    :  0.1179994 3.90902e-93 6.464486e-06 0.05132675 4.831416 
+#> Initial :  8.381857e-11 0.9958299 0.000605489 0.003564639 1.026552e-94 
+#> Exit    :  0.1181382 4.427337e-93 6.467791e-06 0.05122773 4.831366 
 #> Infinitesimal generator : 
 #> 5 x 5 sparse Matrix of class "dgCMatrix"
 #>                                                                           
-#> [1,] -4.871469e+00  4.471403e-144   1.628003e-66  5.694646e-18  4.75347004
-#> [2,]  6.303324e-02  -4.830687e+00   4.592402e+00  8.763450e-03  0.16648792
-#> [3,]  1.236227e-04   9.657331e-18  -4.850744e+00  4.816559e+00  0.03405511
-#> [4,]  4.455606e+00   3.099458e-66   8.686727e-21 -4.846059e+00  0.33912532
-#> [5,]  4.366386e-15  3.315274e-225  3.603132e-124  9.071887e-51 -4.83141618
+#> [1,] -4.871478e+00  5.176939e-144   1.738194e-66  5.793350e-18  4.75334026
+#> [2,]  6.288755e-02  -4.830630e+00   4.592414e+00  8.770330e-03  0.16655846
+#> [3,]  1.237500e-04   9.821536e-18  -4.850766e+00  4.816661e+00  0.03397468
+#> [4,]  4.455372e+00   3.303485e-66   8.839500e-21 -4.846094e+00  0.33949432
+#> [5,]  4.440043e-15  4.269800e-225  4.149348e-124  9.632575e-51 -4.83136581
 
 ## phfit with CF1
 phfit.point(ph=cf1(5), x=wsample)
@@ -297,17 +294,18 @@ phfit.point(ph=cf1(5), x=wsample)
 #> xxxxxx
 #> xxxxxx
 #> 
-#> Maximum LLF: -59.416064
-#> AIC: 136.832128
+#> Maximum LLF: -59.416058
+#> DF: 9
+#> AIC: 136.832116
 #> Iteration:  2000 / 2000
-#> Computation time (user): 1.111000
+#> Computation time (user): 1.731000
 #> Convergence: FALSE
-#> Error (abs): 1.509990e-06 (tolerance Inf)
-#> Error (rel): 2.541383e-08 (tolerance 1.490116e-08)
+#> Error (abs): 1.497201e-06 (tolerance Inf)
+#> Error (rel): 2.519859e-08 (tolerance 1.490116e-08)
 #> 
 #> Size : 5
-#> Initial :  0.8888552 0.003273583 0.08345855 0.02441269 1.479869e-101 
-#> Rate    :  4.83095 4.83097 4.880507 4.88051 4.880513
+#> Initial :  0.8888711 0.003245776 0.08347344 0.02440971 9.387039e-102 
+#> Rate    :  4.830947 4.830966 4.88052 4.880523 4.880526
 
 ## phfit with Hyper-Erlang
 phfit.point(ph=herlang(5), x=wsample, ubound=3)
@@ -318,9 +316,10 @@ phfit.point(ph=herlang(5), x=wsample, ubound=3)
 #> shape:  5  llf=-61.37
 #> 
 #> Maximum LLF: -60.083945
+#> DF: 4
 #> AIC: 128.167889
-#> Iteration:  204 / 2000
-#> Computation time (user): 0.034000
+#> Iteration:  205 / 2000
+#> Computation time (user): 0.010000
 #> Convergence: TRUE
 #> Error (abs): 8.852490e-07 (tolerance Inf)
 #> Error (rel): 1.473354e-08 (tolerance 1.490116e-08)
@@ -356,9 +355,10 @@ rule. Then we can get estimated PH parameters from grouped data.
 phfit.group(ph=ph(5), counts=h.res$counts, breaks=h.res$breaks)
 #> 
 #> Maximum LLF: -22.812530
+#> DF: 29
 #> AIC: 103.625059
-#> Iteration:  1647 / 2000
-#> Computation time (user): 0.514000
+#> Iteration:  1648 / 2000
+#> Computation time (user): 0.355000
 #> Convergence: TRUE
 #> Error (abs): 3.396318e-07 (tolerance Inf)
 #> Error (rel): 1.488795e-08 (tolerance 1.490116e-08)
@@ -386,9 +386,10 @@ phfit.group(ph=cf1(5), counts=h.res$counts, breaks=h.res$breaks)
 #> xxxxxx
 #> 
 #> Maximum LLF: -22.811905
+#> DF: 9
 #> AIC: 63.623811
-#> Iteration:  1304 / 2000
-#> Computation time (user): 0.565000
+#> Iteration:  1300 / 2000
+#> Computation time (user): 0.256000
 #> Convergence: TRUE
 #> Error (abs): 3.388332e-07 (tolerance Inf)
 #> Error (rel): 1.485335e-08 (tolerance 1.490116e-08)
@@ -408,17 +409,18 @@ phfit.group(ph=herlang(5), counts=h.res$counts, breaks=h.res$breaks)
 #> shape:  5  llf=-23.97
 #> 
 #> Maximum LLF: -23.588309
-#> AIC: 55.176617
+#> DF: 4
+#> AIC: 55.176618
 #> Iteration:  204 / 2000
-#> Computation time (user): 0.043000
+#> Computation time (user): 0.012000
 #> Convergence: TRUE
-#> Error (abs): 3.463910e-07 (tolerance Inf)
-#> Error (rel): 1.468486e-08 (tolerance 1.490116e-08)
+#> Error (abs): 3.487320e-07 (tolerance Inf)
+#> Error (rel): 1.478410e-08 (tolerance 1.490116e-08)
 #> 
 #> Size : 2
 #> Shape   :  1 4 
-#> Initial :  0.002267234 0.9977328 
-#> Rate    :  3.186197 4.05926
+#> Initial :  0.002267855 0.9977321 
+#> Rate    :  3.185279 4.059259
 ```
 
 Next we present the case where PH parameters are estimated from a
@@ -430,25 +432,26 @@ commands;
 ## phfit with GPH
 phfit.density(ph=ph(5), f=dweibull, shape=2, scale=1)
 #> 
-#> Maximum LLF: -11.251992
-#> AIC: 80.503984
+#> Maximum LLF: -11.277901
+#> DF: 29
+#> KL: 0.003678
 #> Iteration:  2000 / 2000
-#> Computation time (user): 0.830000
+#> Computation time (user): 2.199000
 #> Convergence: FALSE
-#> Error (abs): 6.961001e-06 (tolerance Inf)
-#> Error (rel): 6.186457e-07 (tolerance 1.490116e-08)
+#> Error (abs): 4.373887e-05 (tolerance Inf)
+#> Error (rel): 3.878266e-06 (tolerance 1.490116e-08)
 #> 
 #> Size : 5
-#> Initial :  4.577855e-49 0.01368209 0.9497458 0.03657207 8.584149e-09 
-#> Exit    :  4.946403 0.0001532047 1.150315e-45 3.097348e-05 0.2731335 
+#> Initial :  0.002418179 9.821622e-10 3.600447e-10 0.9975812 5.963473e-07 
+#> Exit    :  2.100892e-07 4.481721 0.009147137 1.348414e-09 2.014541e-06 
 #> Infinitesimal generator : 
 #> 5 x 5 sparse Matrix of class "dgCMatrix"
-#>                                                                         
-#> [1,] -4.9464112  3.319514e-65  3.208540e-105  2.649815e-27  7.716337e-06
-#> [2,]  0.2559562 -4.961494e+00   7.518925e-10  4.697923e+00  7.462019e-03
-#> [3,]  0.5438509  4.116477e+00  -4.864664e+00  1.087195e-01  9.561702e-02
-#> [4,]  0.1824197  2.980250e-13   2.459518e-32 -4.929520e+00  4.747069e+00
-#> [5,]  4.7184058  1.030910e-42   9.896035e-77  2.082164e-14 -4.991539e+00
+#>                                                                            
+#> [1,] -7.678954e+00  6.065494e+00  5.807125e-17   7.860962e-58  1.613460e+00
+#> [2,]  2.015246e-16 -4.481721e+00  4.065456e-53  1.472027e-113  1.949072e-19
+#> [3,]  5.737140e-01  6.334776e-05 -4.359790e+00   8.547004e-21  3.776866e+00
+#> [4,]  2.235419e-05  6.215926e-01  3.859707e+00  -4.481354e+00  3.184373e-05
+#> [5,]  5.565411e+00  1.398323e+00  1.308304e-14   2.552571e-53 -6.963736e+00
 
 ## phfit with CF1
 phfit.density(ph=cf1(5), f=dweibull, shape=2, scale=1)
@@ -460,17 +463,18 @@ phfit.density(ph=cf1(5), f=dweibull, shape=2, scale=1)
 #> xxxxxx
 #> xxxxxx
 #> 
-#> Maximum LLF: -11.247614
-#> AIC: 40.495228
+#> Maximum LLF: -11.247613
+#> DF: 9
+#> KL: 0.002069
 #> Iteration:  2000 / 2000
-#> Computation time (user): 1.031000
+#> Computation time (user): 1.586000
 #> Convergence: FALSE
-#> Error (abs): 2.792283e-07 (tolerance Inf)
-#> Error (rel): 2.482556e-08 (tolerance 1.490116e-08)
+#> Error (abs): 2.767693e-07 (tolerance Inf)
+#> Error (rel): 2.460694e-08 (tolerance 1.490116e-08)
 #> 
 #> Size : 5
-#> Initial :  0.7536077 0.003014352 0.1516817 0.09169629 2.445755e-37 
-#> Rate    :  4.844509 4.844531 5.062429 5.062435 5.06244
+#> Initial :  0.7536251 0.002987832 0.1516952 0.09169184 2.131364e-37 
+#> Rate    :  4.844488 4.844509 5.062465 5.06247 5.062475
 
 ## phfit with Hyper-Erlang
 phfit.density(ph=herlang(5), f=dweibull, shape=2, scale=1)
@@ -483,9 +487,10 @@ phfit.density(ph=herlang(5), f=dweibull, shape=2, scale=1)
 #> shape:  5  llf=-12.83
 #> 
 #> Maximum LLF: -11.391140
-#> AIC: 30.782281
-#> Iteration:  76 / 2000
-#> Computation time (user): 0.043000
+#> DF: 4
+#> KL: 0.009694
+#> Iteration:  77 / 2000
+#> Computation time (user): 0.012000
 #> Convergence: TRUE
 #> Error (abs): 1.461348e-07 (tolerance Inf)
 #> Error (rel): 1.282881e-08 (tolerance 1.490116e-08)
@@ -501,7 +506,7 @@ function. User-defined functions are also used as density functions in
 similar manner.
 
 Usually, the PH fitting with density is used for the PH expansion (PH
-approximation) in which known general desitributions are replaced with
+approximation) in which known general distributions are replaced with
 the PH distributions estimated from these density functions. Compared to
 PH fitting with samples, PH fitting with density function tends to be
 accurate, because density function has more information than samples.
@@ -515,22 +520,23 @@ is possible to perform PH fitting even if PH has 100 states;
 #> Initializing CF1 ...
 #> ooooxx
 #> xxxxox
-#> xxooxx
-#> xxooxx
+#> xxoxxx
+#> xxoxxx
 #> xxxxxx
 #> xxxxxx
 #> 
-#> Maximum LLF: -11.208672
-#> AIC: 420.417344
-#> Iteration:  18 / 2000
-#> Computation time (user): 0.322000
+#> Maximum LLF: -11.208676
+#> DF: 199
+#> KL: 0.000000
+#> Iteration:  40 / 2000
+#> Computation time (user): 0.402000
 #> Convergence: TRUE
-#> Error (abs): 1.427159e-07 (tolerance Inf)
-#> Error (rel): 1.273264e-08 (tolerance 1.490116e-08)
+#> Error (abs): 1.596614e-07 (tolerance Inf)
+#> Error (rel): 1.424445e-08 (tolerance 1.490116e-08)
 #> 
 #> Size : 100
-#> Initial :  2.599883e-06 6.238748e-06 1.39668e-05 2.932778e-05 5.806999e-05 0.0001089792 0.0001947346 0.0003326876 0.0005453356 0.0008609362 0.001313022 0.001940568 0.002752387 0.003779144 0.005034756 0.006522314 0.008232693 0.01014416 0.01222305 0.01442546 0.01669971 0.01898941 0.02123668 0.02338547 0.02538437 0.027189 0.02876368 0.03008234 0.03112875 0.03189611 0.03238624 0.03260834 0.03257765 0.03231402 0.03184055 0.03118232 0.03036529 0.02941539 0.02835779 0.02721633 0.02601311 0.02476824 0.02349969 0.02222323 0.02095244 0.01969885 0.01847198 0.01727957 0.01612771 0.01502101 0.01396282 0.01295535 0.01199987 0.01109684 0.01024606 0.009446795 0.008697862 0.00799775 0.007344687 0.006736716 0.006171752 0.005647633 0.005162157 0.004713123 0.004298349 0.003915701 0.003563102 0.003238551 0.002940127 0.002666 0.002414428 0.002183764 0.001972456 0.001779041 0.001602152 0.001440505 0.001292906 0.001158241 0.001035476 0.0009236501 0.0008218768 0.000729335 0.0006452666 0.0005689707 0.0004997979 0.0004371446 0.0003804479 0.0003291814 0.0002828541 0.0002410142 0.0002032566 0.000169236 0.000138679 0.0001113854 8.719624e-05 6.589667e-05 4.700055e-05 2.941743e-05 1.195204e-05 5.344346e-07 
-#> Rate    :  14.78982 14.79032 14.79221 14.79361 14.79503 14.79602 14.79734 14.7997 14.80516 14.80938 14.81343 14.81371 14.94164 15.10413 15.30104 15.53234 15.79787 16.09746 16.43096 16.7983 17.19949 17.6347 18.10423 18.60851 19.14814 19.72383 20.33645 20.98694 21.6764 22.40598 23.17695 23.99067 24.84856 25.75216 26.70307 27.70298 28.75369 29.85708 31.01512 32.2299 33.5036 34.83852 36.23704 37.70168 39.23509 40.84001 42.51933 44.27606 46.11334 48.03448 50.0429 52.1422 54.33613 56.6286 59.0237 61.52569 64.13904 66.86838 69.71858 72.69468 75.80199 79.04601 82.43248 85.96743 89.6571 93.50804 97.52705 101.7213 106.0981 110.6653 115.4309 120.4033 125.5914 131.0043 136.6516 142.5432 148.6896 155.1015 161.7904 168.768 176.0467 183.6393 191.5592 199.8203 208.4373 217.4254 226.8004 236.5789 246.7781 257.416 268.5113 280.0837 292.1536 304.7422 317.8719 331.5657 345.8478 360.743 376.277 392.4783
+#> Initial :  0.0001817557 0.0002199945 0.0002849414 0.0003823432 0.0005203138 0.0007081901 0.0009555305 0.001271161 0.001662378 0.00213446 0.002690543 0.003331824 0.004057922 0.004867224 0.005757032 0.006723475 0.007761197 0.008862959 0.01001928 0.01121831 0.01244589 0.01368604 0.01492163 0.01613516 0.01730967 0.01842943 0.01948053 0.02045124 0.02133205 0.0221157 0.02279694 0.02337235 0.02384012 0.02419988 0.02445255 0.02460023 0.02464612 0.02459445 0.02445036 0.02421979 0.02390929 0.02352592 0.02307703 0.02257007 0.02201249 0.02141157 0.0207743 0.02010733 0.01941691 0.01870884 0.01798851 0.01726081 0.01653022 0.01580077 0.01507609 0.01435938 0.01365348 0.01296082 0.01228352 0.01162334 0.01098173 0.01035988 0.009758688 0.009178828 0.00862076 0.008084756 0.007570922 0.007079222 0.006609496 0.006161481 0.005734828 0.005329111 0.004943847 0.004578498 0.004232485 0.00390519 0.003595963 0.003304128 0.003028987 0.002769832 0.002525954 0.002296659 0.002081281 0.001879196 0.001689827 0.001512641 0.00134713 0.001192767 0.001048963 0.0009150229 0.0007901335 0.0006734343 0.0005642032 0.0004621629 0.0003677834 0.0002822111 0.0002060518 0.0001355869 5.772149e-05 9.89152e-07 
+#> Rate    :  12.48094 13.67933 14.7307 15.64476 16.4295 17.09579 17.65842 18.13518 18.54521 18.90725 19.23834 19.55306 19.86316 20.17759 20.50277 20.84294 21.20065 21.57721 21.97308 22.38825 22.82253 23.2757 23.74767 24.23853 24.74852 25.27808 25.82772 26.39805 26.98969 27.60327 28.23941 28.89869 29.58167 30.28889 31.0209 31.77823 32.56147 33.37118 34.20799 35.07256 35.96555 36.8877 37.83973 38.82243 39.83658 40.883 41.96254 43.07605 44.22444 45.40861 46.62951 47.8881 49.18539 50.5224 51.9002 53.31989 54.78258 56.28945 57.84169 59.44054 61.08725 62.78316 64.52958 66.32792 68.17958 70.08605 72.04881 74.06944 76.14951 78.29068 80.49462 82.76309 85.09788 87.50081 89.97379 92.51877 95.13775 97.83278 100.606 103.4596 106.3957 109.4168 112.5251 115.7231 119.0133 122.3984 125.8809 129.4637 133.1495 136.9412 140.8417 144.854 148.9813 153.2266 157.5935 162.0854 166.7062 171.4588 176.3446 181.3698
 ```
 
 The result provides a highly-accurate approximation for Weibull
@@ -540,8 +546,8 @@ components can be applied to PH fitting with high orders. In the above
 example, although the number of states is 100, the execution time is in
 a few seconds because of the refinement of EM algorithm \[1\].
 
-If we use only point data to estimate PH paramters with high orders, the
-overfitting is happen.
+If we use only point data to estimate PH parameters with high orders,
+the overfitting is happen.
 
 ``` r
 ## estimate PH parameters from 100 samples (overfitting example)
@@ -554,47 +560,66 @@ overfitting is happen.
 #> xxxxxx
 #> xxxxxx
 #> 
-#> Maximum LLF: -50.504694
-#> AIC: 499.009389
+#> Maximum LLF: -50.504606
+#> DF: 185
+#> AIC: 471.009213
 #> Iteration:  2000 / 2000
-#> Computation time (user): 13.911000
+#> Computation time (user): 14.520000
 #> Convergence: FALSE
-#> Error (abs): 2.206856e-05 (tolerance Inf)
-#> Error (rel): 4.369603e-07 (tolerance 1.490116e-08)
+#> Error (abs): 2.196319e-05 (tolerance Inf)
+#> Error (rel): 4.348748e-07 (tolerance 1.490116e-08)
 #> 
 #> Size : 100
-#> Initial :  0.1202096 6.764348e-05 9.321036e-07 6.811892e-06 0.001288109 0.02794817 0.01173278 0.008975703 0.3149251 0.02244628 9.5633e-08 2.022402e-19 4.491174e-38 5.152489e-62 1.362944e-86 1.104046e-104 4.68987e-109 1.574135e-96 6.309722e-71 3.576939e-41 1.030212e-16 0.00181199 0.2276336 0.001261759 6.802447e-08 8.007144e-13 4.233199e-17 1.016617e-19 3.638777e-20 1.695734e-18 2.108035e-15 1.691792e-11 1.070296e-07 0.0001161001 0.009177928 0.04844802 0.03048213 0.005061077 0.0005292287 8.053939e-05 3.41728e-05 5.497223e-05 0.000293541 0.002881663 0.02000355 0.03342715 0.005723291 6.958614e-05 9.248946e-08 5.470145e-11 1.315666e-13 1.482377e-14 4.267618e-13 2.493284e-09 0.0001260568 0.09398627 0.001195881 1.773137e-12 2.550649e-31 2.708633e-63 2.441887e-111 3.096799e-178 1.435716e-266 4.940656e-324 4.940656e-324 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 4.940656e-324 1.821753e-309 5.881058e-133 1.172993e-28 0.01 2.653771e-52 2.829182e-170 4.940656e-324 0 0 0 0 0 0 0 0 0 0 0 
-#> Rate    :  13.73081 13.73082 13.73083 13.73083 13.77372 14.08333 14.08345 14.08407 33.19848 33.19856 33.19908 33.19959 33.20012 33.20057 33.20104 33.20128 33.20132 33.69536 34.45539 35.48678 37.38758 51.3712 68.40707 68.40714 68.40714 68.40714 68.40715 68.40718 68.40719 68.40724 68.40727 68.49253 68.65665 69.16487 71.62275 74.88214 75.0449 75.04494 75.04502 75.10814 75.24823 75.436 75.73135 76.43363 78.24753 79.5032 79.51665 79.6809 79.9043 80.15795 80.44487 80.7836 81.2334 82.04908 85.52639 115.0642 115.0642 115.0643 115.0644 115.4022 115.7969 116.221 116.6672 117.1315 117.6115 118.1056 118.6127 119.1317 119.6621 120.2031 120.7543 121.3151 121.8853 122.4645 123.0528 123.6501 124.2567 124.8733 125.5009 126.1416 126.7991 127.482 128.2144 129.0948 131.1379 165.2424 165.3937 165.6018 165.8298 166.0683 166.3142 166.566 166.8229 167.0844 167.35 167.6195 167.8927 168.1696 168.45 168.7342
+#> Initial :  0.1202048 6.679923e-05 9.145549e-07 6.718388e-06 0.001283871 0.02800786 0.01171954 0.008940903 0.315099 0.02227029 9.221007e-08 1.84297e-19 3.756857e-38 3.874537e-62 9.20175e-87 6.878353e-105 2.853375e-109 1.005652e-96 4.503625e-71 2.928074e-41 9.505794e-17 0.00179272 0.2276657 0.001248857 6.610175e-08 7.619455e-13 3.954642e-17 9.383904e-20 3.348167e-20 1.573251e-18 1.97383e-15 1.610638e-11 1.036936e-07 0.0001142191 0.009129112 0.04846457 0.0305252 0.005057544 0.0005268339 7.985494e-05 3.378966e-05 5.432951e-05 0.0002907046 0.00286521 0.01997708 0.03347203 0.005724726 6.916916e-05 9.08789e-08 5.294994e-11 1.25534e-13 1.402524e-14 4.047361e-13 2.399657e-09 0.0001240435 0.09399483 0.001188389 1.702627e-12 2.27337e-31 2.12508e-63 1.579558e-111 1.528505e-178 4.946943e-267 4.940656e-324 4.940656e-324 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3.800888e-310 2.98257e-133 1.016015e-28 0.01 2.112341e-52 1.324818e-170 4.940656e-324 0 0 0 0 0 0 0 0 0 0 0 
+#> Rate    :  13.72962 13.72962 13.72963 13.72963 13.77239 14.08349 14.08361 14.08422 33.20377 33.20423 33.20469 33.20493 33.20497 33.20527 33.20535 33.20586 33.20637 33.69793 34.45626 35.48529 37.38158 51.33875 68.41158 68.4116 68.41161 68.41167 68.4117 68.4118 68.41188 68.41188 68.41188 68.49642 68.65949 69.16467 71.61702 74.8835 75.04758 75.04761 75.04777 75.11004 75.2494 75.4362 75.7301 76.4299 78.24315 79.50126 79.5141 79.67761 79.90004 80.1526 80.4383 80.77559 81.2235 82.03581 85.49975 115.0783 115.0783 115.0784 115.0785 115.4152 115.809 116.232 116.6771 117.1402 117.6191 118.112 118.6178 119.1356 119.6647 120.2044 120.7543 121.3138 121.8827 122.4606 123.0475 123.6434 124.2487 124.8639 125.4901 126.1293 126.7854 127.4669 128.1977 129.0762 131.115 165.2486 165.3993 165.6066 165.8337 166.0713 166.3163 166.5671 166.823 167.0835 167.3481 167.6166 167.8888 168.1646 168.444 168.727
+
+## 3 moments match
+m1 <- gamma(1+1/2)
+m2 <- gamma(1+2/2)
+m3 <- gamma(1+3/2)
+(result.3mom <- phfit.3mom(m1, m2, m3))
+#> Size : 6
+#> Initial :  0.8760898 0 0 0 0 0.1239102 
+#> Exit    :  0 0 0 0 0 3.535949 
+#> Infinitesimal generator : 
+#> 6 x 6 sparse Matrix of class "dgCMatrix"
+#>                                                                     
+#> [1,] -7.259401  7.259401  .         .         .         .           
+#> [2,]  .        -7.259401  7.259401  .         .         .           
+#> [3,]  .         .        -7.259401  7.259401  .         .           
+#> [4,]  .         .         .        -7.259401  7.259401  1.289529e-14
+#> [5,]  .         .         .         .        -7.259401  7.259401e+00
+#> [6,]  .         .         .         .         .        -3.535949e+00
 
 library(ggplot2)
 ggplot(data.frame(x=seq(0, 3, length.out=100)), aes(x=x)) +
   stat_function(fun=dweibull, args=list(shape=2, scale=1), aes_(colour='exact')) +
-  stat_function(fun=dph, args=list(ph=result.point$model), aes_(colour='from point data')) +
-  stat_function(fun=dph, args=list(ph=result.density$model), aes_(colour='from density'))
+  stat_function(fun=dphase, args=list(ph=result.3mom), aes_(colour='from moment matching')) +
+  stat_function(fun=dphase, args=list(ph=result.point$model), aes_(colour='from point data')) +
+  stat_function(fun=dphase, args=list(ph=result.density$model), aes_(colour='from density'))
 ```
 
 <img src="man/figures/README-draw_plot-1.png" width="100%" />
 
 ### References
 
--   \[1\] H. Okamura, T. Dohi and K.S. Trivedi, A refined EM algorithm
-    for PH distributions, Performance Evaluation, 68(10), 938-954, 2011.
--   \[2\] A. Thummler and P. Buchholz and M. Telek, A novel approach for
-    phase-type fitting with the EM algorithm, IEEE Transactions on
-    Dependable and Secure Computing, 3(3), 245-258, 2006.
--   \[3\] A. Panchenko and A. Thummler, Efficient phase-type fitting
-    with aggregated traffic traces, Performance Evaluation, 64, 629-645,
-    2007.
--   \[4\] H. Okamura, T. Dohi and K.S. Trivedi, Improvement of EM
-    algorithm for phase-type distributions with grouped and truncated
-    data, Applied Stochastic Models in Business and Industry, 29(2),
-    141-156, 2013.
--   \[5\] A. Bobbio and A. Horvath and M. Telek, Matching three moments
-    with minimal acyclic phase type distributions, Stochastic Models,
-    21(2/3), 303-326, 2005.
--   \[6\] T. Osogami and M. Harchol-Balter, Closed form solutions for
-    mapping general distributions to minimal PH distributions,
-    Performance Evaluation, 63(6), 524-552, 2006.
+- \[1\] H. Okamura, T. Dohi and K.S. Trivedi, A refined EM algorithm for
+  PH distributions, Performance Evaluation, 68(10), 938-954, 2011.
+- \[2\] A. Thummler and P. Buchholz and M. Telek, A novel approach for
+  phase-type fitting with the EM algorithm, IEEE Transactions on
+  Dependable and Secure Computing, 3(3), 245-258, 2006.
+- \[3\] A. Panchenko and A. Thummler, Efficient phase-type fitting with
+  aggregated traffic traces, Performance Evaluation, 64, 629-645, 2007.
+- \[4\] H. Okamura, T. Dohi and K.S. Trivedi, Improvement of EM
+  algorithm for phase-type distributions with grouped and truncated
+  data, Applied Stochastic Models in Business and Industry, 29(2),
+  141-156, 2013.
+- \[5\] A. Bobbio and A. Horvath and M. Telek, Matching three moments
+  with minimal acyclic phase type distributions, Stochastic Models,
+  21(2/3), 303-326, 2005.
+- \[6\] T. Osogami and M. Harchol-Balter, Closed form solutions for
+  mapping general distributions to minimal PH distributions, Performance
+  Evaluation, 63(6), 524-552, 2006.
 
 ## MAP Fitting
 
@@ -604,41 +629,33 @@ MAP (Markovian arrival process) is a stochastic point process whose
 arrival rates are dominated by a CTMC. The CTMC expresses the internal
 state of MAP called a phase process. MAP is generally defined by an
 initial probability vector
-![\\boldsymbol{\\alpha}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7B%5Calpha%7D "\boldsymbol{\alpha}")
+![\boldsymbol{\alpha}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7B%5Calpha%7D "\boldsymbol{\alpha}")
 and two matrices for infinitesimal generators
-![\\boldsymbol{D}\_0](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BD%7D_0 "\boldsymbol{D}_0"),
-![\\boldsymbol{D}\_1](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BD%7D_1 "\boldsymbol{D}_1").
+![\boldsymbol{D}\_0](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BD%7D_0 "\boldsymbol{D}_0"),
+![\boldsymbol{D}\_1](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BD%7D_1 "\boldsymbol{D}_1").
 Let
-![\\boldsymbol{\\pi}(n,t)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7B%5Cpi%7D%28n%2Ct%29 "\boldsymbol{\pi}(n,t)")
+![\boldsymbol{\pi}(n,t)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7B%5Cpi%7D%28n%2Ct%29 "\boldsymbol{\pi}(n,t)")
 be the row vector whose i-th entry is the probability that the phase
 process is i at time t and n arrivals occur before time t. Then we have
 the following differential equations:
 
-![
-\\frac{d}{dt} \\boldsymbol{\\pi}(n,t) = \\boldsymbol{\\pi}(n,t) \\boldsymbol{D}\_0 + \\boldsymbol{\\pi}(n-1,t) \\boldsymbol{D}\_1, \\quad \\text{for $n = 1, 2, \\ldots$},
-](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%0A%5Cfrac%7Bd%7D%7Bdt%7D%20%5Cboldsymbol%7B%5Cpi%7D%28n%2Ct%29%20%3D%20%5Cboldsymbol%7B%5Cpi%7D%28n%2Ct%29%20%5Cboldsymbol%7BD%7D_0%20%2B%20%5Cboldsymbol%7B%5Cpi%7D%28n-1%2Ct%29%20%5Cboldsymbol%7BD%7D_1%2C%20%5Cquad%20%5Ctext%7Bfor%20%24n%20%3D%201%2C%202%2C%20%5Cldots%24%7D%2C%0A "
-\frac{d}{dt} \boldsymbol{\pi}(n,t) = \boldsymbol{\pi}(n,t) \boldsymbol{D}_0 + \boldsymbol{\pi}(n-1,t) \boldsymbol{D}_1, \quad \text{for $n = 1, 2, \ldots$},
-")
+![\frac{d}{dt} \boldsymbol{\pi}(n,t) = \boldsymbol{\pi}(n,t) \boldsymbol{D}\_0 + \boldsymbol{\pi}(n-1,t) \boldsymbol{D}\_1, \quad \text{for \$n = 1, 2, \ldots\$},](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cfrac%7Bd%7D%7Bdt%7D%20%5Cboldsymbol%7B%5Cpi%7D%28n%2Ct%29%20%3D%20%5Cboldsymbol%7B%5Cpi%7D%28n%2Ct%29%20%5Cboldsymbol%7BD%7D_0%20%2B%20%5Cboldsymbol%7B%5Cpi%7D%28n-1%2Ct%29%20%5Cboldsymbol%7BD%7D_1%2C%20%5Cquad%20%5Ctext%7Bfor%20%24n%20%3D%201%2C%202%2C%20%5Cldots%24%7D%2C "\frac{d}{dt} \boldsymbol{\pi}(n,t) = \boldsymbol{\pi}(n,t) \boldsymbol{D}_0 + \boldsymbol{\pi}(n-1,t) \boldsymbol{D}_1, \quad \text{for $n = 1, 2, \ldots$},")
 
-![
-\\frac{d}{dt} \\boldsymbol{\\pi}(0,t) = \\boldsymbol{\\pi}(0,t) \\boldsymbol{D}\_0, \\quad \\boldsymbol{\\pi}(0,0) = \\boldsymbol{\\alpha},
-](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%0A%5Cfrac%7Bd%7D%7Bdt%7D%20%5Cboldsymbol%7B%5Cpi%7D%280%2Ct%29%20%3D%20%5Cboldsymbol%7B%5Cpi%7D%280%2Ct%29%20%5Cboldsymbol%7BD%7D_0%2C%20%5Cquad%20%5Cboldsymbol%7B%5Cpi%7D%280%2C0%29%20%3D%20%5Cboldsymbol%7B%5Calpha%7D%2C%0A "
-\frac{d}{dt} \boldsymbol{\pi}(0,t) = \boldsymbol{\pi}(0,t) \boldsymbol{D}_0, \quad \boldsymbol{\pi}(0,0) = \boldsymbol{\alpha},
-")
+![\frac{d}{dt} \boldsymbol{\pi}(0,t) = \boldsymbol{\pi}(0,t) \boldsymbol{D}\_0, \quad \boldsymbol{\pi}(0,0) = \boldsymbol{\alpha},](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cfrac%7Bd%7D%7Bdt%7D%20%5Cboldsymbol%7B%5Cpi%7D%280%2Ct%29%20%3D%20%5Cboldsymbol%7B%5Cpi%7D%280%2Ct%29%20%5Cboldsymbol%7BD%7D_0%2C%20%5Cquad%20%5Cboldsymbol%7B%5Cpi%7D%280%2C0%29%20%3D%20%5Cboldsymbol%7B%5Calpha%7D%2C "\frac{d}{dt} \boldsymbol{\pi}(0,t) = \boldsymbol{\pi}(0,t) \boldsymbol{D}_0, \quad \boldsymbol{\pi}(0,0) = \boldsymbol{\alpha},")
 
 where
-![\\boldsymbol{D}\_0](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BD%7D_0 "\boldsymbol{D}_0")
+![\boldsymbol{D}\_0](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BD%7D_0 "\boldsymbol{D}_0")
 and
-![\\boldsymbol{D}\_1](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BD%7D_1 "\boldsymbol{D}_1")
+![\boldsymbol{D}\_1](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BD%7D_1 "\boldsymbol{D}_1")
 are infinitesimal generators of phase process without and with arrivals,
 respectively. Note that
-![\\boldsymbol{D}\_0 + \\boldsymbol{D}\_1](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BD%7D_0%20%2B%20%5Cboldsymbol%7BD%7D_1 "\boldsymbol{D}_0 + \boldsymbol{D}_1")
+![\boldsymbol{D}\_0 + \boldsymbol{D}\_1](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BD%7D_0%20%2B%20%5Cboldsymbol%7BD%7D_1 "\boldsymbol{D}_0 + \boldsymbol{D}_1")
 becomes the infinitesimal generator of phase process. Similar to PH
 fitting, the purpose of MAP fitting is to find MAP parameters
-![\\boldsymbol{\\alpha}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7B%5Calpha%7D "\boldsymbol{\alpha}"),
-![\\boldsymbol{D}\_0](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BD%7D_0 "\boldsymbol{D}_0")
+![\boldsymbol{\alpha}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7B%5Calpha%7D "\boldsymbol{\alpha}"),
+![\boldsymbol{D}\_0](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BD%7D_0 "\boldsymbol{D}_0")
 and
-![\\boldsymbol{D}\_1](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BD%7D_1 "\boldsymbol{D}_1")
+![\boldsymbol{D}\_1](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cboldsymbol%7BD%7D_1 "\boldsymbol{D}_1")
 so that the estimated MAP fits to observed data. In MAP fitting, there
 are also two approaches; MM method and MLE. The MM method for MAP is to
 determine MAP parameters with marginal/joint moments and k-lag
@@ -688,22 +705,22 @@ this version of tool.
 mapfit has three classes (models) for MAP, which have different
 parameter estimation algorithms.
 
--   general MAP: MAP with no constraint on parameters. This class is
-    referred to as `map` in the tool. Also, the tool uses a Markov
-    modulated Poisson process (MMPP) as a specific structure of `map`,
-    which can be generated by an `mmpp` command.
--   HMM (hidden Markov model) with Erlang outputs (ER-HMM): One of MAP
-    representation where Erlang outputs correspond to time intervals
-    between two successive arrivals \[2\]. In the tool, this class is
-    referred to as `erhmm`.
--   MMPP with grouped data: MMPP with approximate parameter estimation.
-    This is referred to as `gmmpp` in the tool, and is essentially same
-    as `mmpp` except for parameter estimation algorithm. In the
-    parameter estimation of `gmmpp`, it is assumed that at most one
-    phase change is allowed in one observed time interval \[3\].
+- general MAP: MAP with no constraint on parameters. This class is
+  referred to as `map` in the tool. Also, the tool uses a Markov
+  modulated Poisson process (MMPP) as a specific structure of `map`,
+  which can be generated by an `mmpp` command.
+- HMM (hidden Markov model) with Erlang outputs (ER-HMM): One of MAP
+  representation where Erlang outputs correspond to time intervals
+  between two successive arrivals \[2\]. In the tool, this class is
+  referred to as `erhmm`.
+- MMPP with grouped data: MMPP with approximate parameter estimation.
+  This is referred to as `gmmpp` in the tool, and is essentially same as
+  `mmpp` except for parameter estimation algorithm. In the parameter
+  estimation of `gmmpp`, it is assumed that at most one phase change is
+  allowed in one observed time interval \[3\].
 
 The `map` class consists of parameters
-![\\alpha](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Calpha "\alpha"),
+![\alpha](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Calpha "\alpha"),
 ![D_0](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;D_0 "D_0")
 and
 ![D_1](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;D_1 "D_1"),
@@ -715,16 +732,15 @@ for Erlang distribution (`shape`) and the rate parameters for Erlang
 distribution (`rate`). The S4 class `erhmm` can be transformed to `map`
 by using `as` method.
 
-The tool has the follwoing MAP fitting functions:
+The tool has the following MAP fitting functions:
 
--   `mapfit.point`: MLEs for general MAP and ER-HMM from point data. The
-    estimation algorithm for general MAP is the EM algorithm introduced
-    in \[4\]. The algorithm for ER-HMM is the EM algorithm proposed in
-    \[2\].
--   `mapfit.group`: MLEs for general MAP and `gmmpp` from grouped data.
-    Both the estimation algorithms for general MAP and `gmmpp` are
-    presented in \[3\]. Note that `erhmm` cannot be used in the case of
-    grouped data.
+- `mapfit.point`: MLEs for general MAP and ER-HMM from point data. The
+  estimation algorithm for general MAP is the EM algorithm introduced in
+  \[4\]. The algorithm for ER-HMM is the EM algorithm proposed in \[2\].
+- `mapfit.group`: MLEs for general MAP and `gmmpp` from grouped data.
+  Both the estimation algorithms for general MAP and `gmmpp` are
+  presented in \[3\]. Note that `erhmm` cannot be used in the case of
+  grouped data.
 
 The functions `mapfit.point` and `mapfit.group` select an appropriate
 algorithm depending on the class of a given MAP. These functions return
@@ -742,6 +758,9 @@ time intervals for packet arrivals and is frequently used in several
 papers as a benchmark. We use only the first 1000 arrival times.
 
 ``` r
+RNGkind(kind = "Mersenne-Twister")
+set.seed(1234)
+
 data(BCpAug89)
 BCpAug89
 #>    [1] 0.001340 0.000168 0.002668 0.003964 0.002896 0.004036 0.002820 0.002712
@@ -879,89 +898,96 @@ commands, respectively;
 ## mapfit for general MAP
 mapfit.point(map=map(5), x=cumsum(BCpAug89))
 #> 
-#> Maximum LLF: 5140.147595
-#> AIC: -10190.295190
-#> Iteration:  1011 / 2000
-#> Computation time (user): 13.964000
-#> Convergence: TRUE
-#> Error (abs): 7.646365e-05 (tolerance Inf)
-#> Error (rel): 1.487577e-08 (tolerance 1.490116e-08)
+#> Maximum LLF: 5122.534283
+#> DF: 49
+#> AIC: -10147.068566
+#> Iteration:  2000 / 2000
+#> Computation time (user): 72.704000
+#> Convergence: FALSE
+#> Error (abs): 1.498159e-04 (tolerance Inf)
+#> Error (rel): 2.924644e-08 (tolerance 1.490116e-08)
 #> 
 #> Size : 5
-#> Initial :  0.1801396 0.2885964 0.1771319 0.1812461 0.172886 
-#> Infinitesimal generator : 
-#> 5 x 5 sparse Matrix of class "dgCMatrix"
-#>                                                                           
-#> [1,] -1.061324e+03  5.235987e-02  1.127125e-25  9.839023e+02  2.183896e-04
-#> [2,]  1.209889e-02 -1.123448e+02  1.188700e-01  1.291279e-02  2.573930e+00
-#> [3,]  1.467385e-84  1.677555e+00 -1.074471e+03  4.891540e-36  1.396510e-48
-#> [4,]  2.613107e-32  1.451876e+01  9.714023e+02 -1.021438e+03  2.750421e-12
-#> [5,]  3.463362e-53  4.562652e-66  1.478035e-04  3.357871e-19 -8.272394e+02
-#> 5 x 5 sparse Matrix of class "dgCMatrix"
-#>                                                                        
-#> [1,] 7.688721e+01 3.729835e-211 2.281306e-122 1.229387e-36 4.823690e-01
-#> [2,] 4.074875e+00  1.019899e+02  1.572422e+00 1.985961e+00 3.894666e-03
-#> [3,] 9.944944e+02  2.842794e-01  7.775000e+01 6.219898e-22 2.646421e-01
-#> [4,] 2.624369e-21  9.856690e-81  7.323236e-54 2.980665e-43 3.551686e+01
-#> [5,] 5.989362e-09  3.343306e-76  1.008148e-10 4.231130e+01 7.849279e+02
+#> Initial :  0.1603438 0.1711041 0.3232155 0.1724821 0.1728545 
+#> Infinitesimal generator D0: 
+#> 5 x 5 Matrix of class "dgeMatrix"
+#>               [,1]           [,2]          [,3]          [,4]          [,5]
+#> [1,] -1.720628e+03   1.220294e+03  2.220531e-09  1.801320e-12  2.420524e-23
+#> [2,]  9.559413e-14  -1.459595e+03  4.716531e-26  1.408366e+03  1.845559e-15
+#> [3,]  7.131167e-09   6.930977e-04 -1.214721e+02  5.892926e+00  2.000251e-05
+#> [4,]  1.135388e-33   8.220767e-41  2.805414e-28 -1.479720e+03  1.458977e+03
+#> [5,]  6.102793e-71  3.169232e-135  1.109230e-32  2.940132e-41 -1.455834e+03
+#> Infinitesimal generator D1: 
+#> 5 x 5 Matrix of class "dgeMatrix"
+#>              [,1]         [,2]          [,3]         [,4]          [,5]
+#> [1,] 1.739651e+02 3.263687e+02 2.986680e-230 3.678877e-05  3.329270e-29
+#> [2,] 3.695446e-47 1.826671e-05 1.751724e-191 5.122940e+01  3.044409e-40
+#> [3,] 5.788336e-83 5.393613e+00  1.101849e+02 3.444119e-86 5.585843e-187
+#> [4,] 3.916670e-27 3.501582e-11 3.382059e-113 2.074297e+01  4.687940e-06
+#> [5,] 1.434720e+03 7.972563e-03  2.110570e+01 1.529094e-21  5.435371e-11
 
 ## mapfit for general MMPP
 mapfit.point(map=mmpp(5), x=cumsum(BCpAug89))
 #> 
-#> Maximum LLF: 5055.133942
-#> AIC: -10060.267883
-#> Iteration:  404 / 2000
-#> Computation time (user): 8.724000
+#> Maximum LLF: 5055.112718
+#> DF: 29
+#> AIC: -10052.225436
+#> Iteration:  35 / 2000
+#> Computation time (user): 1.346000
 #> Convergence: TRUE
-#> Error (abs): 7.264097e-05 (tolerance Inf)
-#> Error (rel): 1.436974e-08 (tolerance 1.490116e-08)
+#> Error (abs): 7.531932e-05 (tolerance Inf)
+#> Error (rel): 1.489963e-08 (tolerance 1.490116e-08)
 #> 
 #> Size : 5
-#> Initial :  0.02144093 0.238745 0.401778 0.002786422 0.3352496 
-#> Infinitesimal generator : 
-#> 5 x 5 sparse Matrix of class "dgCMatrix"
-#>                                                                       
-#> [1,] -844.276406  4.865555e-05  143.22925542    42.587977  181.9538205
-#> [2,]    2.104589 -1.121355e+02    0.03553884     1.121266    1.5590542
-#> [3,]    1.370654  2.864409e+00 -362.16740393     6.336612    0.1688801
-#> [4,] 1880.457155  7.690769e-05  369.80585855 -2708.771347    5.1918483
-#> [5,]    4.750041  1.419096e-15    0.61276819     7.629885 -653.0968904
-#> 5 x 5 sparse Matrix of class "dgCMatrix"
-#>                                                 
-#> [1,] 476.5053   .       .        .        .     
-#> [2,]   .      107.315   .        .        .     
-#> [3,]   .        .     351.4268   .        .     
-#> [4,]   .        .       .      453.3164   .     
-#> [5,]   .        .       .        .      640.1042
+#> Initial :  0.2390191 0.004807314 0.01941634 0.3883767 0.3483806 
+#> Infinitesimal generator D0: 
+#> 5 x 5 Matrix of class "dgeMatrix"
+#>               [,1]          [,2]          [,3]        [,4]        [,5]
+#> [1,] -1.121570e+02     0.2395869     0.3756003    1.028355    3.213956
+#> [2,]  6.083074e+01 -2933.4024676  1592.4176089  766.472038  147.987777
+#> [3,]  2.042628e+00   231.1420458 -1306.0536603  703.883531   12.460843
+#> [4,]  2.134376e+00    18.8580459    26.3579958 -401.780047    1.797643
+#> [5,]  2.076509e-07     1.3621789     1.3046626    4.278800 -642.855329
+#> Infinitesimal generator D1: 
+#> 5 x 5 Matrix of class "dgeMatrix"
+#>          [,1]     [,2]     [,3]    [,4]     [,5]
+#> [1,] 107.2995   0.0000   0.0000   0.000   0.0000
+#> [2,]   0.0000 365.6943   0.0000   0.000   0.0000
+#> [3,]   0.0000   0.0000 356.5246   0.000   0.0000
+#> [4,]   0.0000   0.0000   0.0000 352.632   0.0000
+#> [5,]   0.0000   0.0000   0.0000   0.000 635.9097
 
 ## mapfit for ER-HMM
 mapfit.point(map=erhmm(5), x=cumsum(BCpAug89))
-#> shape:  1 1 1 1 1  llf=5055.11
-#> shape:  1 1 1 2  llf=5113.70
+#> shape:  1 1 1 1 1  llf=5037.68
+#> shape:  1 1 1 2  llf=5113.80
 #> shape:  1 1 3  llf=5121.86
-#> shape:  1 2 2  llf=5106.48
+#> shape:  1 2 2  llf=5107.05
 #> shape:  1 4  llf=5003.21
+#> Warning in emfit_erhmm_time(alpha, xi, rate, shape, P, data, options, H):
+#> Warning: LLF does not increases (iter=16, llf=5024.03, diff=-1.43212e-05)
 #> shape:  2 3  llf=5024.03
 #> shape:  5  llf=3716.53
 #> 
-#> Maximum LLF: 5121.860147
-#> AIC: -10221.720294
-#> Iteration:  71 / 2000
-#> Computation time (user): 1.260000
+#> Maximum LLF: 5121.860098
+#> DF: 13
+#> AIC: -10217.720196
+#> Iteration:  85 / 2000
+#> Computation time (user): 0.763000
 #> Convergence: TRUE
-#> Error (abs): 6.302517e-05 (tolerance Inf)
-#> Error (rel): 1.230513e-08 (tolerance 1.490116e-08)
+#> Error (abs): 7.459457e-05 (tolerance Inf)
+#> Error (rel): 1.456396e-08 (tolerance 1.490116e-08)
 #> 
 #> Size : 3
 #> Shape   :  1 1 3 
-#> Initial :  0.4956884 0.08702657 0.417285 
-#> Rate    :  748.6684 111.8898 1061.68 
+#> Initial :  0.4956725 0.08702603 0.4173015 
+#> Rate    :  748.678 111.8892 1061.695 
 #> Transition probability : 
-#> 3 x 3 sparse Matrix of class "dgCMatrix"
-#>                                        
-#> [1,] 0.91943990 2.080601e-11 0.08056010
-#> [2,] 0.03562065 9.053646e-01 0.05901477
-#> [3,] 0.08826764 1.973662e-02 0.89199574
+#> 3 x 3 Matrix of class "dgeMatrix"
+#>            [,1]         [,2]       [,3]
+#> [1,] 0.91944135 1.220395e-13 0.08055865
+#> [2,] 0.03556987 9.053353e-01 0.05909483
+#> [3,] 0.08826998 1.974182e-02 0.89198819
 ```
 
 In the above example, `cumsum` is a function to derive cumulative sums
@@ -1018,164 +1044,108 @@ with approximate estimation (`gmmpp`).
 ## mapfit for general MAP with grouped data
 mapfit.group(map=map(5), counts=BCpAug89.group$counts, breaks=BCpAug89.group$breaks)
 #> 
-#> Maximum LLF: -543.092984
-#> AIC: 1176.185967
-#> Iteration:  1384 / 2000
-#> Computation time (user): 51.224000
-#> Convergence: TRUE
-#> Error (abs): 8.082774e-06 (tolerance Inf)
-#> Error (rel): 1.488285e-08 (tolerance 1.490116e-08)
+#> Maximum LLF: -554.776073
+#> DF: 49
+#> AIC: 1207.552145
+#> Iteration:  2000 / 2000
+#> Computation time (user): 127.523000
+#> Convergence: FALSE
+#> Error (abs): 2.654024e-04 (tolerance Inf)
+#> Error (rel): 4.783953e-07 (tolerance 1.490116e-08)
 #> 
 #> Size : 5
-#> Initial :  0.07333445 0.2487455 0.1723761 0.322209 0.1833349 
-#> Infinitesimal generator : 
-#> 5 x 5 sparse Matrix of class "dgCMatrix"
-#>                                                                               
-#> [1,]  -3.047904e+01  3.947300e-159   1.422234e-30  1.592732e-90   6.332886e-32
-#> [2,]  5.494354e-211  -1.102898e+02  5.692130e-320  1.461261e-17  1.219775e-315
-#> [3,]   2.348635e-13   3.359617e-02  -7.633223e+02  8.883249e+00   2.059710e-05
-#> [4,]   1.508458e-01   1.453163e+00   9.181767e-03 -6.389108e+02   5.970120e-04
-#> [5,]   3.718644e-13   2.536356e-02   6.999167e+02  2.030370e-03  -7.055768e+02
-#> 5 x 5 sparse Matrix of class "dgCMatrix"
-#>                                                                          
-#> [1,] 4.046247e-293 1.724406e-115  3.047904e+01 8.542693e-87  6.102553e-29
-#> [2,] 8.445178e-279  1.050356e+02 3.123209e-310 5.254179e+00 6.617169e-319
-#> [3,]  1.956194e-10  4.377445e+00  7.441963e-03 2.244253e-04  7.500203e+02
-#> [4,]  3.752686e+00  5.794493e-02  3.165501e+00 6.301008e+02  2.200785e-01
-#> [5,]  5.331282e+00  3.002839e-01  2.479617e-08 2.000958e-04  9.440298e-04
+#> Initial :  0.06328003 0.3507495 0.2356264 0.07035194 0.2799922 
+#> Infinitesimal generator D0: 
+#> 5 x 5 Matrix of class "dgeMatrix"
+#>               [,1]          [,2]          [,3]          [,4]           [,5]
+#> [1,] -1.841592e+03  1.553891e-15  1.157789e+02  5.084803e-03   3.051464e-12
+#> [2,]  1.003815e-10 -9.809545e+01  5.777257e-04  8.248668e-12  4.940656e-324
+#> [3,]  4.395244e-01  8.862347e-05 -4.846395e+02  8.671099e+00   4.267835e-75
+#> [4,]  1.596055e+03  1.750864e-13  1.563358e+01 -1.674587e+03   4.769906e-09
+#> [5,]  1.391710e-63  1.906085e-05  5.963354e-15  7.803157e-64  -3.612557e+02
+#> Infinitesimal generator D1: 
+#> 5 x 5 Matrix of class "dgeMatrix"
+#>              [,1]         [,2]         [,3]         [,4]          [,5]
+#> [1,] 3.399102e+01 2.879076e-09 8.778286e-01 1.672897e+03  1.804263e+01
+#> [2,] 5.167392e+00 9.139872e+01 1.528764e+00 4.216854e-07 4.940656e-324
+#> [3,] 7.758472e-01 8.364457e+00 4.429568e+02 2.343168e+01 2.903017e-110
+#> [4,] 9.517915e-03 1.575820e-32 5.215542e-05 6.232805e+01  5.608927e-01
+#> [5,] 3.846468e-81 1.349904e+00 2.868759e+00 1.050595e-74  3.570370e+02
 
 ## mapfit for general MMPP with grouped data
 mapfit.group(map=mmpp(5), counts=BCpAug89.group$counts, breaks=BCpAug89.group$breaks)
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=132 llf.diff=4.220933e-05
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=133 llf.diff=3.366376e-04
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=134 llf.diff=5.051768e-04
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=135 llf.diff=5.845536e-04
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=136 llf.diff=6.038050e-04
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=137 llf.diff=5.848563e-04
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=138 llf.diff=5.435768e-04
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=139 llf.diff=4.909857e-04
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=140 llf.diff=4.344059e-04
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=141 llf.diff=3.784562e-04
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=142 llf.diff=3.258503e-04
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=143 llf.diff=2.780067e-04
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=144 llf.diff=2.354965e-04
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=145 llf.diff=1.983613e-04
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=146 llf.diff=1.663313e-04
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=147 llf.diff=1.389718e-04
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=148 llf.diff=1.157771e-04
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=149 llf.diff=9.622870e-05
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=150 llf.diff=7.983006e-05
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=151 llf.diff=6.612451e-05
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=152 llf.diff=5.470362e-05
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=153 llf.diff=4.520912e-05
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=154 llf.diff=3.733118e-05
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=155 llf.diff=3.080462e-05
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=156 llf.diff=2.540439e-05
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=157 llf.diff=2.094063e-05
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=158 llf.diff=1.725397e-05
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=159 llf.diff=1.421116e-05
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=160 llf.diff=1.170111e-05
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=161 llf.diff=9.631476e-06
-#> Warning in emfit(map, data, initialize = FALSE, ufact = con$uniform.factor, :
-#> LLF decreses: iter=162 llf.diff=7.925587e-06
 #> 
-#> Maximum LLF: -558.890363
-#> AIC: 1167.780726
-#> Iteration:  162 / 2000
-#> Computation time (user): 5.392000
+#> Maximum LLF: -556.527050
+#> DF: 29
+#> AIC: 1171.054100
+#> Iteration:  687 / 2000
+#> Computation time (user): 72.267000
 #> Convergence: TRUE
-#> Error (abs): 7.925587e-06 (tolerance Inf)
-#> Error (rel): 1.418093e-08 (tolerance 1.490116e-08)
+#> Error (abs): 8.230252e-06 (tolerance Inf)
+#> Error (rel): 1.478859e-08 (tolerance 1.490116e-08)
 #> 
 #> Size : 5
-#> Initial :  0.336854 0.1773842 0.3521996 0.1275778 0.005984325 
-#> Infinitesimal generator : 
-#> 5 x 5 sparse Matrix of class "dgCMatrix"
-#>                                                                      
-#> [1,] -99.872163  4.580554e-07    7.248944  7.308010e-07  5.354417e-07
-#> [2,]   1.524902 -4.724140e+02    2.329234  9.475050e+01  1.416705e+01
-#> [3,]   5.248968  2.461266e+00 -631.368618  1.141778e+00  4.811211e-01
-#> [4,]   2.299920  1.491683e+02    2.076641 -5.287208e+02  1.580929e+01
-#> [5,]   4.886126  1.779647e+01   27.937475  7.346608e+02 -1.144126e+03
-#> 5 x 5 sparse Matrix of class "dgCMatrix"
-#>                                                  
-#> [1,] 92.62322   .        .        .        .     
-#> [2,]  .       359.6423   .        .        .     
-#> [3,]  .         .      622.0355   .        .     
-#> [4,]  .         .        .      359.3667   .     
-#> [5,]  .         .        .        .      358.8456
+#> Initial :  0.3371581 0.1733851 0.002042279 0.2116746 0.2757399 
+#> Infinitesimal generator D0: 
+#> 5 x 5 Matrix of class "dgeMatrix"
+#>               [,1]          [,2]          [,3]        [,4]           [,5]
+#> [1,] -9.812065e+01  4.855140e+00  9.548377e-02    2.125667  2.192511e-117
+#> [2,]  4.489278e-10 -8.587724e+02  2.533694e+01   40.377084   6.772455e+00
+#> [3,]  6.409872e-05  1.816304e+03 -4.030291e+03 1745.481400   2.260435e-06
+#> [4,]  9.615866e+00  3.411710e+01  1.345895e+01 -504.782486   1.676778e-21
+#> [5,]  1.270740e+00  1.555820e-17  6.729164e-11    2.987776  -3.624054e+02
+#> Infinitesimal generator D1: 
+#> 5 x 5 Matrix of class "dgeMatrix"
+#>          [,1]     [,2]     [,3]     [,4]     [,5]
+#> [1,] 91.04435   0.0000   0.0000   0.0000   0.0000
+#> [2,]  0.00000 786.2859   0.0000   0.0000   0.0000
+#> [3,]  0.00000   0.0000 468.5052   0.0000   0.0000
+#> [4,]  0.00000   0.0000   0.0000 447.5906   0.0000
+#> [5,]  0.00000   0.0000   0.0000   0.0000 358.1468
 
 ## mapfit for general MMPP with grouped data (approximation)
 mapfit.group(map=gmmpp(5), counts=BCpAug89.group$counts, breaks=BCpAug89.group$breaks)
 #> 
-#> Maximum LLF: -828.051682
-#> AIC: 1706.103365
-#> Iteration:  102 / 2000
-#> Computation time (user): 2.943000
+#> Maximum LLF: -828.214536
+#> DF: 29
+#> AIC: 1714.429073
+#> Iteration:  137 / 2000
+#> Computation time (user): 5.562000
 #> Convergence: TRUE
-#> Error (abs): 1.213698e-05 (tolerance Inf)
-#> Error (rel): 1.465727e-08 (tolerance 1.490116e-08)
+#> Error (abs): 1.174183e-05 (tolerance Inf)
+#> Error (rel): 1.417728e-08 (tolerance 1.490116e-08)
 #> 
 #> Size : 5
-#> Initial :  0.07402404 0.2640609 0.3241613 0.1628244 0.1749294 
-#> Infinitesimal generator : 
+#> Initial :  0.2516258 0.183785 0.1965876 0.1946077 0.1733939 
+#> Infinitesimal generator D0: 
 #> 5 x 5 Matrix of class "dgeMatrix"
 #>               [,1]          [,2]          [,3]          [,4]          [,5]
-#> [1,] -1.090465e+03  1.460739e-05   95.43625590  1.975754e-14  8.219658e-09
-#> [2,]  1.744402e-05 -4.659664e+02   90.09109238  2.693177e-08  9.094447e+00
-#> [3,]  1.931501e+01  8.079529e+01 -571.48907351  5.930851e-09  7.751839e-08
-#> [4,]  2.794275e-14  1.946525e-03    0.01169835 -9.466821e+01  9.465456e+01
-#> [5,]  4.592685e+00  5.077813e-06    9.12293102  8.811722e+01 -2.984222e+02
+#> [1,] -1.086551e+03  3.290412e-18  4.976078e-12   96.21832293  1.034133e-10
+#> [2,]  1.098316e-18 -9.465068e+01  9.457765e+01    0.07125943  1.769756e-03
+#> [3,]  4.619582e+00  8.816451e+01 -2.981280e+02    9.05755345  6.497892e-07
+#> [4,]  1.960721e+01  1.478413e-13  1.297276e-12 -569.58623102  8.040788e+01
+#> [5,]  8.750462e-11  9.490825e-10  9.122291e+00   90.01656338 -4.662285e+02
+#> Infinitesimal generator D1: 
 #> 5 x 5 Matrix of class "dgeMatrix"
-#>          [,1]     [,2]     [,3]         [,4]     [,5]
-#> [1,] 995.0287   0.0000   0.0000 0.000000e+00   0.0000
-#> [2,]   0.0000 366.7809   0.0000 0.000000e+00   0.0000
-#> [3,]   0.0000   0.0000 471.3788 0.000000e+00   0.0000
-#> [4,]   0.0000   0.0000   0.0000 1.022278e-06   0.0000
-#> [5,]   0.0000   0.0000   0.0000 0.000000e+00 196.5894
+#>          [,1]         [,2]     [,3]     [,4]     [,5]
+#> [1,] 990.3329 0.000000e+00   0.0000   0.0000   0.0000
+#> [2,]   0.0000 3.801572e-11   0.0000   0.0000   0.0000
+#> [3,]   0.0000 0.000000e+00 196.2863   0.0000   0.0000
+#> [4,]   0.0000 0.000000e+00   0.0000 469.5711   0.0000
+#> [5,]   0.0000 0.000000e+00   0.0000   0.0000 367.0896
 ```
 
 ### References
 
--   \[1\] G. Horvath, P. Buchholz and M. Telek, A MAP fitting approach
-    with independent approximation of the inter-arrival time
-    distribution and the lag correlation, Proceedings of the 2nd
-    International Conference on the Quantitative Evaluation of Systems
-    (QEST2005), 124-133, 2005.
--   \[2\] H. Okamura and T. Dohi, Faster maximum likelihood estimation
-    algorithms for Markovian arrival processes, Proceedings of 6th
-    International Conference on Quantitative Evaluation of Systems
-    (QEST2009), 73-82, 2009.
--   \[3\] H. Okamura, T. Dohi and K.S. Trivedi, Markovian arrival
-    process parameter estimation with group data, IEEE/ACM Transactions
-    on Networking, 17(4), 1326-1339, 2009.
+- \[1\] G. Horvath, P. Buchholz and M. Telek, A MAP fitting approach
+  with independent approximation of the inter-arrival time distribution
+  and the lag correlation, Proceedings of the 2nd International
+  Conference on the Quantitative Evaluation of Systems (QEST2005),
+  124-133, 2005.
+- \[2\] H. Okamura and T. Dohi, Faster maximum likelihood estimation
+  algorithms for Markovian arrival processes, Proceedings of 6th
+  International Conference on Quantitative Evaluation of Systems
+  (QEST2009), 73-82, 2009.
+- \[3\] H. Okamura, T. Dohi and K.S. Trivedi, Markovian arrival process
+  parameter estimation with group data, IEEE/ACM Transactions on
+  Networking, 17(4), 1326-1339, 2009.

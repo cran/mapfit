@@ -2,32 +2,22 @@
 % Please edit documentation in R/model_cf1.R
 \name{cf1}
 \alias{cf1}
-\title{Canonical Form 1 for Phase-Type (PH) Distribution}
+\title{Create CF1}
 \usage{
-cf1(size, alpha, rate, class = "CsparseMatrix")
+cf1(size, alpha, rate)
 }
 \arguments{
-\item{size}{A value for the number of phases.}
+\item{size}{An integer of the number of phases}
 
-\item{alpha}{A vector for the initial probabilities of PH distribution.}
+\item{alpha}{A vector of initial probabilities}
 
-\item{rate}{A vector for transition rates to next phase (diagonal elements of Q).}
-
-\item{class}{Name of Matrix class for \code{Q}.}
+\item{rate}{A vector of rates}
 }
 \value{
-\code{cf1} gives an object of canonical form 1 that is a subclass of PH distribution.
+An instance of CF1.
 }
 \description{
-A function to generate an object of \code{\linkS4class{cf1}}.
-}
-\details{
-\itemize{
-\item The PH distribution with parameters \eqn{\alpha}, \eqn{Q} and \eqn{\xi = - Q 1}:
-\item Cumulative probability function; \deqn{F(q) = 1 - \alpha \exp( Q q ) 1}
-\item Probability density function; \deqn{f(x) = \alpha \exp( Q x ) \xi,}
-where \eqn{Q} is a bidiagonal matrix whose entries are sorted.
-}
+Create an instance of CF1.
 }
 \examples{
 ## create a CF1 with 5 phases
@@ -39,17 +29,4 @@ where \eqn{Q} is a bidiagonal matrix whose entries are sorted.
 ## create a CF1 with specific parameters
 (param2 <- cf1(alpha=c(1,0,0), rate=c(1.0,2.0,3.0)))
 
-## p.d.f. for 0, 0.1, ..., 1
-(dph(x=seq(0, 1, 0.1), ph=param2))
-
-## c.d.f. for 0, 0.1, ..., 1
-(pph(q=seq(0, 1, 0.1), ph=param2))
-
-## generate 10 samples (this is quiker than rph with general ph)
-(rph(n=10, ph=param2))
-
 }
-\seealso{
-\code{\link{ph}}, \code{\link{herlang}}
-}
-\keyword{distribution}

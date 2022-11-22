@@ -5,7 +5,7 @@
 \alias{BCpAug89}
 \title{Packet Trace Data}
 \format{
-\code{BCpAug89} is a vector for the interarrival time in sencons for 1000 arrivals.
+\code{BCpAug89} is a vector for the inter-arrival time in seconds for 1000 arrivals.
 }
 \source{
 The original trace data are published in http://ita.ee.lbl.gov/html/contrib/BC.html.

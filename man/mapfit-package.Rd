@@ -4,9 +4,9 @@
 \name{mapfit-package}
 \alias{mapfit}
 \alias{mapfit-package}
-\title{mapfit: A Tool for PH/MAP Parameter Estimation}
+\title{mapfit: PH/MAP Parameter Estimation}
 \description{
-Estimation methods for phase-type distribution (PH) and Markovian arrival process (MAP) from empirical data (point and grouped data) and density function.
+Estimation methods for phase-type distribution (PH) and Markovian arrival process (MAP) from empirical data (point and grouped data) and density function. The tool is based on the following researches: Okamura et al. (2009) \doi{10.1109/TNET.2008.2008750}, Okamura and Dohi (2009) \doi{10.1109/QEST.2009.28}, Okamura et al. (2011) \doi{10.1016/j.peva.2011.04.001}, Okamura et al. (2013) \doi{10.1002/asmb.1919}, Horvath and Okamura (2013) \doi{10.1007/978-3-642-40725-3_10}, Okamura and Dohi (2016) \doi{10.15807/jorsj.59.72}.
 }
 \seealso{
 Useful links:

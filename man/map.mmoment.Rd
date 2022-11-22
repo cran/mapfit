@@ -2,41 +2,22 @@
 % Please edit documentation in R/model_map.R
 \name{map.mmoment}
 \alias{map.mmoment}
-\alias{map.jmoment}
-\alias{map.acf}
-\title{Moments for Markovian arrival pcess (MAP)}
+\title{Marginal moments of MAP}
 \usage{
-map.mmoment(k, map)
-
-map.jmoment(lag, map)
-
-map.acf(map)
+map.mmoment(k, map, ...)
 }
 \arguments{
-\item{k}{An integer of dgrees of moments.}
+\item{k}{An integer for the moments to be computed}
 
-\item{map}{An object of S4 class of MAP (\code{\linkS4class{map}}, \code{\linkS4class{gmmpp}}).}
+\item{map}{An instance of MAP}
 
-\item{lag}{An integer of time lag for corrleation.}
+\item{...}{Others}
 }
 \value{
-\code{map.mmoment} gives a vector of up to k moments.
-\code{map.jmoment} gives a matrix of \eqn{s_{ij}(lag), i=1,..,n, j=1,..,n} where n is the size of phases.
-\code{map.acf} gives a vector of up to n-lag correlation, where n is the size of phases.
+A vector of moments
 }
 \description{
-Moments for MAP.
-}
-\details{
-MAP parameters are \eqn{\alpha}, \eqn{D_0} and \eqn{D_1};
-\deqn{P = (-D_0)^{-1} D_1} and \deqn{s P = s.}
-
-Then the moments for MAP are marginal moment; \deqn{m_k = k! s (-D_0)^{-k} 1,}
-joint moment; \deqn{s_{ij}(lag) = i! j! s (-D_0)^{-i} P^{lag} (-D_0)^{-j} 1,}
-k-lag correlation (autocorrelation); \deqn{rho(lag) = (s_{11}(lag) - m_1^2)/(m_2 - m_1^2)}
-}
-\note{
-\code{map.mmoment} is a generic function for \code{\linkS4class{ph}} and \code{\linkS4class{herlang}}.
+Compute up to k-th marginal moments for a given MAP
 }
 \examples{
 ## create an MAP with specific parameters
@@ -49,20 +30,7 @@ k-lag correlation (autocorrelation); \deqn{rho(lag) = (s_{11}(lag) - m_1^2)/(m_2
                  rate=c(1.0,10.0),
                  P=rbind(c(0.3, 0.7), c(0.1, 0.9))))
 
-## marginal moments of MAP
 map.mmoment(k=3, map=param1)
-map.mmoment(k=3, map=as(param2, "map"))
-
-## joint moments of MAP
-map.jmoment(lag=1, map=param1)
-map.jmoment(lag=1, map=as(param2, "map"))
-
-## k-lag correlation
-map.acf(map=param1)
-map.acf(map=as(param2, "map"))
+map.mmoment(k=3, map=param2)
 
 }
-\seealso{
-\code{\link{map}}, \code{\link{gmmpp}}, \code{\link{erhmm}}
-}
-\keyword{distribution}
